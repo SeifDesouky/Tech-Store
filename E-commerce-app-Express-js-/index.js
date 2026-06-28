@@ -116,8 +116,15 @@ async function connectDB() {
 }
 
 app.use(async (req, res, next) => {
-  await connectDB();
-  next();
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    return res.status(500).json({
+      message: "Database connection failed",
+      error: err.message
+    });
+  }
 });
 
 module.exports = serverless(app);
