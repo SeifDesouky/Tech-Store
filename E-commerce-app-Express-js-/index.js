@@ -53,7 +53,11 @@ app.use((req, res, next) => {
 
 app.use(mongoSanitize()); 
 app.use(xss()); 
-
+app.get("/", (req, res) => {
+  res.json({
+    status: "API is running"
+  });
+});
 app.use(morgan('dev'));
 app.use(cors({ origin: true, credentials: true }));
 app.use(compression());

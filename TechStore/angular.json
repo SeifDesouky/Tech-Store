@@ -62,7 +62,25 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "techStore:build:production"
+               "fileReplacements": [
+    {
+      "replace": "src/environments/environment.ts",
+      "with": "src/environments/environment.prod.ts"
+    }
+  ],
+  "budgets": [
+    {
+      "type": "initial",
+      "maximumWarning": "2MB",
+      "maximumError": "3MB"
+    },
+    {
+      "type": "anyComponentStyle",
+      "maximumWarning": "20kB",
+      "maximumError": "30kB"
+    }
+  ],
+  "outputHashing": "all"
             },
             "development": {
               "buildTarget": "techStore:build:development"
