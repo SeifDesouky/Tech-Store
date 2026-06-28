@@ -1,0 +1,96 @@
+<div class="overlay" (click)="onOverlayClick()">
+  <div class="login-card" (click)="$event.stopPropagation()">
+    <h5 class="title">Login Account</h5>
+
+    <p class="subtitle">
+      Lorem ipsum dolor sit amet consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt
+    </p>
+
+    <hr class="divider">
+
+    <div class="alert alert-danger" *ngIf="error">
+      {{ error }}
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <!-- Email Field -->
+      <div class="mb-3">
+        <label for="email" class="form-label">Email Address</label>
+        <div class="input-wrapper">
+          <input
+            type="email"
+            id="email"
+            class="form-control custom-input"
+            placeholder="Enter your email"
+            formControlName="email"
+            [class.is-invalid]="email?.invalid && email?.touched"
+          />
+          <i class="bi bi-envelope-fill input-icon"></i>
+        </div>
+        <small class="error-message" *ngIf="email?.invalid && email?.touched">
+          <span *ngIf="email?.errors?.['required']">Email is required</span>
+          <span *ngIf="email?.errors?.['email']">Invalid email format</span>
+        </small>
+      </div>
+
+      <!-- Password Field -->
+      <div class="mb-4">
+        <label for="password" class="form-label">Password</label>
+        <div class="input-wrapper">
+          <input
+            [type]="hide ? 'password' : 'text'"
+            id="password"
+            class="form-control custom-input"
+            placeholder="Enter your password"
+            formControlName="password"
+            [class.is-invalid]="password?.invalid && password?.touched"
+          />
+          <i
+            [class]="hide ? 'bi bi-eye-slash-fill' : 'bi bi-eye-fill'"
+            class="input-icon clickable"
+            (click)="togglePasswordVisibility()"
+          ></i>
+        </div>
+        <small class="error-message" *ngIf="password?.invalid && password?.touched">
+          <span *ngIf="password?.errors?.['required']">Password is required</span>
+          <span *ngIf="password?.errors?.['minlength']">Password must be at least 6 characters</span>
+        </small>
+      </div>
+
+      <!-- Login Button -->
+      <button
+        type="submit"
+        class="btn login-btn"
+      >
+        Login Account
+      </button>
+<!-- Divider -->
+<div class="social-divider">
+  <span>OR continue with</span>
+</div>
+
+<!-- Social Buttons -->
+<div class="social-buttons">
+  <button class="social-btn google">
+    <i class="bi bi-google"></i>
+    Google
+  </button>
+
+  <button class="social-btn facebook">
+    <i class="bi bi-facebook"></i>
+    Facebook
+  </button>
+</div>
+
+    </form>
+
+    <!-- Links -->
+    <div class="links-container">
+      <a class="link" (click)="onForgot()">Forgot Password?</a>
+      <span class="link-text">
+        Don't have an account?
+        <a class="link accent-link" (click)="onCreate()">Create Account</a>
+      </span>
+    </div>
+  </div>
+</div>

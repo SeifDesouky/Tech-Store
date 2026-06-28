@@ -1,0 +1,14 @@
+<!-- <app-layout></app-layout> -->
+<router-outlet />
+<app-login
+  *ngIf="showLogin"
+  (close)="loginModal.closeLogin()">
+</app-login>
+<app-register
+  *ngIf="showRegister"
+  (close)="loginModal.closeRegister()">
+</app-register>
+<app-forget-password
+  *ngIf="showForgot"
+  (close)="loginModal.closeForgot()">
+</app-forget-password>

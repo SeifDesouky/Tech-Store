@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg bg-custom">
+    <div class="container">
+        <a class="navbar-brand text-white" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0 text-white">
+            <li class="nav-item">
+                <a class="nav-link " aria-current="page" routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#category">Category</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/product" routerLinkActive="active-link">Products</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/support-center/faq" routerLinkActive="active-link">Contact</a>
+            </li>
+
+        </ul>
+        <!-- <form class="d-flex" role="search">
+            <input class="form-control rounded-4 me-3" type="search" placeholder="Search" aria-label="Search"/>
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form> -->
+        <div class="icons">
+            <div class="user" *ngIf="authService.isLoggedIn()" routerLink="/user" routerLinkActive="active-link"><i class="fa-solid fa-user"></i></div>
+            <div class="cart" routerLink="/cart" routerLinkActive="active-link"><i class="fa-solid fa-cart-shopping"></i></div>
+            <button (click)="openRegister()" class="btn btn-danger ms-3" *ngIf="!authService.isLoggedIn()">Register</button>
+            <button (click)="openLogin()" class="btn btn-danger ms-2" *ngIf="!authService.isLoggedIn()">Login</button>
+        </div>
+        </div>
+    </div>
+</nav>
+<div class="borde"></div>

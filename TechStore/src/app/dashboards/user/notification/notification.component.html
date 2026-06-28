@@ -1,0 +1,36 @@
+<div class="container-fluid py-4">
+    <div class="justify-content-center">
+        <div class="notifications-card">
+            <h2 class="title mb-4">Notifications</h2>
+
+            <!-- Filters -->
+            <div class="d-flex flex-wrap gap-2 mb-4">
+                <button class="btn filter-btn" [class.active]="filter === 'all'" (click)="setFilter('all')">
+                    All
+                </button>
+
+                <button class="btn filter-btn" [class.active]="filter === 'orders'" (click)="setFilter('orders')">
+                    Orders
+                </button>
+
+                <button class="btn filter-btn" [class.active]="filter === 'promotions'" (click)="setFilter('promotions')">
+                    Promotions
+                </button>
+            </div>
+
+            <!-- List -->
+            <div class="d-flex flex-column gap-3">
+                <div *ngFor="let n of filtered" class="notification-item" [class.unread]="!n.isRead">
+                    <div class="icon"> <i class="bi" [ngClass]="getIcon(n.type)"></i></div>
+                    <div class="content flex-grow-1">
+                        <p class="message">{{ n.message }}</p>
+                        <small class="time">{{ n.timestamp }}</small>
+                    </div>
+                    <div *ngIf="!n.isRead" class="dot"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,186 @@
+<div class="checkout-container">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-6">
+        <div class="payment-card">
+          <div class="card-header-section">
+            <h2 class="card-title">Select Payment Option</h2>
+            <p class="card-subtitle">all transactions are secure and encrypted</p>
+          </div>
+
+          <div class="payment-option" [class.selected]="selectedPayment === 'paypal'" (click)="selectPayment('paypal')">
+            <div class="payment-option-content">
+              <input type="radio" name="payment" value="paypal" [(ngModel)]="selectedPayment" id="paypal">
+              <label for="paypal">Paypal</label>
+            </div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" class="payment-logo">
+          </div>
+
+          <div class="payment-option credit-card-option" [class.selected]="selectedPayment === 'credit-card'">
+            <div class="payment-option-header" (click)="selectPayment('credit-card')">
+              <div class="payment-option-content">
+                <input type="radio" name="payment" value="credit-card" [(ngModel)]="selectedPayment" id="credit-card">
+                <label for="credit-card">
+                  <span class="credit-label">Credit card</span>
+                  <span class="credit-subtitle">Safe money transfer using your bank account</span>
+                </label>
+              </div>
+              <div class="card-logos">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Visa.svg" alt="Visa" class="card-brand-logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" class="card-brand-logo">
+              </div>
+            </div>
+
+            <div class="credit-card-form" *ngIf="selectedPayment === 'credit-card'">
+              <div class="form-group">
+                <label>Card Number</label>
+                <div class="input-with-icon">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="1234 1234 1234 1234"
+                    [(ngModel)]="cardNumber"
+                    (input)="formatCardNumber($event)"
+                    maxlength="19">
+                  <i class="card-icon">💳</i>
+                </div>
+              </div>
+
+              <div class="row g-3">
+                <div class="col-md-5">
+                  <div class="form-group">
+                    <label>Name on Card</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Card Name"
+                      [(ngModel)]="cardName">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Expired date</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="MM / YY"
+                      [(ngModel)]="expiryDate"
+                      (input)="formatExpiryDate($event)"
+                      maxlength="7">
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>CVV</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="CVV"
+                      [(ngModel)]="cvv"
+                      maxlength="4">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="payment-option" [class.selected]="selectedPayment === 'google-pay'" (click)="selectPayment('google-pay')">
+            <div class="payment-option-content">
+              <input type="radio" name="payment" value="google-pay" [(ngModel)]="selectedPayment" id="google-pay">
+              <label for="google-pay">Google Pay</label>
+            </div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Google_Pay_Logo.svg" alt="Google Pay" class="payment-logo gpay-logo">
+          </div>
+
+          <div class="payment-option" [class.selected]="selectedPayment === 'cash'" (click)="selectPayment('cash')">
+            <div class="payment-option-content">
+              <input type="radio" name="payment" value="cash" [(ngModel)]="selectedPayment" id="cash">
+              <label for="cash">Cash on delivery</label>
+            </div>
+            <div class="cash-icon">💵</div>
+          </div>
+
+<h2 class="card-title">Select Address</h2>
+
+<div *ngIf="addresses.length === 0">
+  <p>No addresses found. <a (click)="goToAddAddress()">Add a new address</a></p>
+</div>
+
+<div class="address-card"
+     *ngFor="let address of addresses"
+     [class.selected]="selectedAddressId === address._id"
+     (click)="selectedAddressId = address._id!">
+  
+  <input type="radio"
+         name="address"
+         [value]="address._id!"
+         [(ngModel)]="selectedAddressId">
+
+  <div class="address-info">
+    <p>{{ address.street }}, {{ address.city }}</p>
+    <small>{{ address.governorate }} - {{ address.zipCode }}</small>
+  </div>
+</div>
+
+
+          
+          <button class="pay-button" (click)="processPayment()">
+            Pay {{ orderTotal.toLocaleString() }} e.g
+          </button>
+
+          <div class="terms-section">
+            <input type="checkbox" id="terms" [(ngModel)]="agreeToTerms">
+            <label for="terms">
+              By clicking this, I agree to <span class="terms-link">Terms & Conditions</span> and <span class="terms-link">Privacy Policy</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="cart-card">
+          <div class="cart-header">
+            <h2 class="cart-title">Your Cart</h2>
+          </div>
+
+          <div class="cart-items">
+            <div class="cart-item" *ngFor="let item of cartItems">
+              <img [src]="item.image" [alt]="item.name" class="item-image">
+              <div class="item-details">
+                <p class="item-name">{{ item.name }}</p>
+                <p class="item-price">{{ item.price.toLocaleString() }} <span class="currency">e.g</span></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="order-summary">
+            <h3 class="summary-title">Order summary</h3>
+
+            <div class="summary-row">
+              <span class="summary-label">Subtotal</span>
+              <span class="summary-value">{{ subtotal.toLocaleString() }} <span class="currency-small">e.g</span></span>
+            </div>
+
+            <div class="summary-row">
+              <span class="summary-label">Fee</span>
+              <span class="summary-value">{{ (totals?.deliveryFee || 0).toLocaleString() }} <span class="currency-small">e.g</span></span>
+            </div>
+
+            <!-- Discount Row -->
+            <div class="summary-row discount-row" *ngIf="discount > 0 ">
+              <span class="summary-label discount-label">Discount</span>
+              <span class="summary-value discount-value">-{{ discount.toLocaleString() }} <span class="currency-small">e.g</span></span>
+            </div>
+
+            <div class="summary-divider"></div>
+
+            <div class="summary-row total-row">
+              <span class="summary-label-total">Order Total</span>
+              <span class="summary-value-total">{{ orderTotal.toLocaleString() }} <span class="currency-small">e.g</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

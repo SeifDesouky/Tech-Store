@@ -1,0 +1,300 @@
+<div class="container py-4">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-lg-2 mb-4 ">
+            <div class="d-none d-lg-block">
+            <div class="p-3 sidebar bg-dark-glass rounded-4">
+                <!-- Category -->
+                <h5 class="fw-bold mb-3" (click)="toggleSection('category')">Category <i class="fa-solid fa-angle-down drop-icon"></i></h5>
+                <form name="category" (change)="onCategoryChange($event)" [ngClass]="states.category?'show':'hide'">
+                    <label class="custom-radio mb-2">
+                        <input type="radio" name="category" value="all" checked>
+                        <span class="radio-mark"></span> All
+                    </label>
+
+
+                    <label class="custom-radio mb-2" *ngFor="let cat of categories">
+                        <input type="radio" name="category" [value]="cat">
+                        <span class="radio-mark"></span> {{cat}}
+                    </label>
+                </form>
+
+                <!-- Condition -->
+                <h5 class="fw-bold mt-4 mb-3" (click)="toggleSection('condition')">Condition <i class="fa-solid fa-angle-down drop-icon"></i></h5>
+                <form name="condition" [ngClass]="states.condition?'show':'hide'" (change)="onConditionChange($event)">
+                    <label class="custom-radio mb-2" *ngFor="let cond of condition">
+                        <input type="radio" name="condition" [value]="cond">
+                        <span class="radio-mark"></span> {{cond}}
+                    </label>
+                </form>
+
+                <!-- Brand -->
+                <h5 class="fw-bold mt-4 mb-3" (click)="toggleSection('brand')">Brand <i class="fa-solid fa-angle-down drop-icon"></i></h5>
+                <form name="brand" [ngClass]="states.brand?'show':'hide'" (change)="onBrandChange($event)">
+                    <label class="custom-radio mb-2" *ngFor="let brand of brand">
+                        <input type="radio" name="brand" [value]="brand">
+                        <span class="radio-mark"></span> {{brand}}
+                    </label>
+                </form>
+
+
+                <!-- Price Range -->
+                <h5 class="fw-bold mt-4 mb-3">Price Range</h5>
+                <input type="range" class="form-range c" min="0" max="100000"
+                [(ngModel)]="currentPriceRange" (input)="onPriceRangeChange($event)">
+
+                <div class="d-flex justify-content-between small text-white-50" >
+                    <span>{{currentPriceRange}} EG</span>
+                    <span>100,000 EG</span>
+                </div>
+
+                <!-- Processor Type -->
+                <h5 class="fw-bold mt-4 mb-3" (click)="toggleSection('processor')">Processor Type <i class="fa-solid fa-angle-down drop-icon"></i></h5>
+                <form name="processor" [ngClass]="states.processor?'show':'hide'" (change)="onProcessorChange($event)">
+                    <label class="custom-radio mb-2" *ngFor="let pro of processor">
+                        <input type="radio" name="processor" [value]="pro">
+                        <span class="radio-mark"></span> {{pro}}
+                    </label>
+                </form>
+
+                <!-- GPU -->
+                <h5 class="fw-bold mt-4 mb-3" (click)="toggleSection('gpu')">GPU <i class="fa-solid fa-angle-down drop-icon"></i></h5>
+                <form name="gpu" [ngClass]="states.gpu?'show':'hide'">
+                    <label class="custom-radio mb-2" *ngFor="let gpu of GPU" (change)="onGPUChange($event)">
+                        <input type="radio" name="gpu" [value]="gpu">
+                        <span class="radio-mark"></span> {{gpu}}
+                    </label>
+                </form>
+
+                <!-- RAM -->
+                <h5 class="fw-bold mt-4 mb-3" (click)="toggleSection('ram')">RAM <i class="fa-solid fa-angle-down drop-icon"></i></h5>
+                <form name="ram" [ngClass]="states.ram?'show':'hide'">
+                    <label class="custom-radio mb-2" *ngFor="let ram of RAM" (change)="onRAMChange($event)">
+                        <input type="radio" name="ram" [value]="ram">
+                        <span class="radio-mark"></span> {{ram}}
+                    </label>
+                </form>
+
+                <!-- storage -->
+                <h5 class="fw-bold mt-4 mb-3" (click)="toggleSection('storage')">Storage <i class="fa-solid fa-angle-down drop-icon"></i></h5>
+                <form name="storage" [ngClass]="states.storage?'show':'hide'" (change)="onStorageChange($event)">
+                    <label class="custom-radio mb-2" *ngFor="let st of storage">
+                        <input type="radio" name="storage" [value]="st">
+                        <span class="radio-mark"></span> {{st}}
+                    </label>
+                </form>
+
+                <!-- screen -->
+                <h5 class="fw-bold mt-4 mb-3" (click)="toggleSection('screenSize')">Screen Size <i class="fa-solid fa-angle-down drop-icon"></i></h5>
+                <form name="screenSize" [ngClass]="states.screenSize?'show':'hide'">
+                    <label class="custom-radio mb-2" *ngFor="let pro of screenSize" (change)="onScreenSizeChange($event)">
+                        <input type="radio" name="screenSize" [value]="pro">
+                        <span class="radio-mark"></span> {{pro}}
+                    </label>
+                </form>
+
+            </div>
+            </div>
+
+<!-- offcanvas -->
+            <div class="slider-icon d-lg-none" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
+                <i class="fa-solid fa-sliders"></i>
+            </div>
+
+            <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+                <div class="position-relative">
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+            <div class="bgdark-glass rounded-4">
+                <!-- Category -->
+                <h5 class="fw-bold mb-3">Category</h5>
+                <form name="category">
+                    <label class="custom-radio mb-2">
+                        <input type="radio" name="category" value="laptops">
+                        <span class="radio-mark"></span> Laptops
+                    </label>
+
+                    <label class="custom-radio mb-2">
+                        <input type="radio" name="category" value="accessories">
+                        <span class="radio-mark"></span> Accessories
+                    </label>
+
+                    <label class="custom-radio mb-2">
+                        <input type="radio" name="category" value="pcbuilds">
+                        <span class="radio-mark"></span> PC Builds
+                    </label>
+                </form>
+
+                <!-- Brand -->
+                <h5 class="fw-bold mt-4 mb-3">Brand</h5>
+                <form name="brand">
+                    <label class="custom-radio mb-2">
+                        <input type="radio" name="brand" value="hp">
+                        <span class="radio-mark"></span> HP
+                    </label>
+
+                    <label class="custom-radio mb-2">
+                        <input type="radio" name="brand" value="msi">
+                        <span class="radio-mark"></span> MSI
+                    </label>
+
+                    <label class="custom-radio mb-2">
+                        <input type="radio" name="brand" value="lenovo">
+                        <span class="radio-mark"></span> Lenovo
+                    </label>
+
+                    <label class="custom-radio mb-2">
+                        <input type="radio" name="brand" value="asus">
+                        <span class="radio-mark"></span> Asus
+                    </label>
+
+                    <label class="custom-radio mb-2">
+                        <input type="radio" name="brand" value="dell">
+                        <span class="radio-mark"></span> Dell
+                    </label>
+                </form>
+
+                <!-- Condition -->
+                <h5 class="fw-bold mt-4 mb-3">Condition</h5>
+                <form name="condition">
+                    <label class="custom-radio mb-2">
+                        <input type="radio" name="condition" value="new">
+                        <span class="radio-mark"></span> New
+                    </label>
+
+                    <label class="custom-radio mb-2">
+                        <input type="radio" name="condition" value="refurbished">
+                        <span class="radio-mark"></span> Refurbished
+                    </label>
+
+                    <label class="custom-radio mb-2">
+                        <input type="radio" name="condition" value="openbox">
+                        <span class="radio-mark"></span> Open Box
+                    </label>
+                </form>
+
+                <!-- Price Range -->
+                <h5 class="fw-bold mt-4 mb-3">Price Range</h5>
+                <input type="range" class="form-range c">
+
+                <div class="d-flex justify-content-between small text-white-50">
+                    <span>0</span>
+                    <span>100,000 E.G</span>
+                </div>
+
+                <!-- Processor Type -->
+                <h5 class="fw-bold mt-4 mb-3">Processor Type</h5>
+                <form name="processor">
+                    <label class="custom-radio mb-2">
+                        <input type="radio" name="processor" value="i3">
+                        <span class="radio-mark"></span> Intel i3
+                    </label>
+
+                    <label class="custom-radio mb-2">
+                        <input type="radio" name="processor" value="i5">
+                        <span class="radio-mark"></span> Intel i5
+                    </label>
+
+                    <label class="custom-radio mb-2">
+                        <input type="radio" name="processor" value="i7">
+                        <span class="radio-mark"></span> Intel i7
+                    </label>
+
+                    <label class="custom-radio mb-2">
+                        <input type="radio" name="processor" value="i9">
+                        <span class="radio-mark"></span> Intel i9
+                    </label>
+
+                    <label class="custom-radio mb-2">
+                        <input type="radio" name="processor" value="r5">
+                        <span class="radio-mark"></span> Ryzen 5
+                    </label>
+
+                    <label class="custom-radio mb-2">
+                        <input type="radio" name="processor" value="r7">
+                        <span class="radio-mark"></span> Ryzen 7
+                    </label>
+
+                    <label class="custom-radio mb-2">
+                        <input type="radio" name="processor" value="r9">
+                        <span class="radio-mark"></span> Ryzen 9
+                    </label>
+                </form>
+
+            </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-12 col-md-11 col-lg-10">
+            <div class="p-2 mb-2 rounded-4 bg-filter ">
+                <div class="filter row">
+                    <div class="search col-12 col-md-5 col-lg-6 position-relative search-box">
+                        <input type="text" class="form-control card-img rounded-4 text-white"
+                        [(ngModel)]="searchText" (ngModelChange)="search($event)">
+                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    </div>
+
+                    <div class="sort price col-12 col-md-11 col-lg-3">
+                        <select name="price" id="" class="form-control custom-select card-img rounded-4 text-white"
+                        (change)="onPriceChange($event)">
+                            <option value="0" disabled selected>sort by price</option>
+                            <option value="asc">Lowest to Highest</option>
+                            <option value="desc">Highest to Lowest</option>
+                        </select>
+                    </div>
+
+                    <div class="sort condition col-12 col-md-11 col-lg-3">
+                        <select name="price" id="" class="form-control custom-select card-img rounded-4 text-white">
+                            <option value="0" disabled selected>sort by condition</option>
+                            <option value="new">Newest to Oldest</option>
+                            <option value="old">Oldest to Newest</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class=" col-6 col-md-4 col-lg-3" *ngFor="let product of filteredProducts| paginate: { itemsPerPage: 8, currentPage: page,id:'some_id'}">
+                    <div class="product-card bg-card-glass p-3 rounded-4 h-100 d-flex flex-column">
+                        <div class="card-img rounded-4 mb-2">
+                            <img [src]="product.images" class="img-fluid rounded mb-3">
+                        </div>
+                        <div class="card-title d-flex">
+                            <h6 class="fw-bold mb-1">{{product.name}}</h6>
+                            <i class="fa-heart" [ngClass]="{'fa-solid icon': isInWishlist(product._id),'fa-regular': !isInWishlist(product._id)}"
+                        (click)="toggleWishlist(product._id)"></i>
+
+                        </div>
+                        <p class="text-white-50 small mb-2">
+                            {{product.description}}
+                        </p>
+                        <div class="fw-bold mb-2">{{product.price}} E.G</div>
+                        <button class="btn btn-danger-gradient w-100 mt-auto" [routerLink]="'/single-product/'+product._id" routerLinkActive="active-link">
+                            View
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+            <pagination-controls  id="some_id"
+                    (pageChange)="pageChanged($event)"
+                    (pageBoundsCorrection)="pageChanged($event)"
+                    [maxSize]="9"
+                    [directionLinks]="true"
+                    [autoHide]="true"
+                    [responsive]="true"
+                    previousLabel="Previous"
+                    nextLabel="Next"
+                    screenReaderPaginationLabel="Pagination"
+                    screenReaderPageLabel="page"
+                    screenReaderCurrentLabel="You're on page">
+            </pagination-controls>
+
+        </div>
+    </div>
+</div>
+
+<!-- <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Enable both scrolling & backdrop</button> -->
+

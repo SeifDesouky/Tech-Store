@@ -1,0 +1,67 @@
+.notifications-card {
+    background: #1f1f1f99;
+    border-radius: 16px;
+    padding: 24px;
+    /* box-shadow: 6px 0 18px rgba(196, 25, 49, 0.45); */
+}
+.title {
+    color: #fff;
+    font-size: 26px;
+}
+.filter-btn {
+    background: #9393934d;
+    color: #9ca3af;
+    border-radius: 10px;
+    padding: 8px 16px;
+}
+.filter-btn:hover {
+    background: #4b5563;
+    color: #fff;
+}
+.filter-btn.active {
+    background: linear-gradient(45deg, #d50000, #ff4d4d);
+    color: #fff;
+}
+.notification-item {
+    display: flex;
+    gap: 16px;
+    padding: 16px;
+    border-radius: 12px;
+    background: #ffffff0a;
+}
+.notification-item.unread {
+    background: #5454546f;
+    border-left: 4px solid #e50914;
+}
+.icon i {
+    font-size: 20px;
+    color: #e50914;
+    margin-top: 4px;
+}
+.message {
+    color: #fff;
+    margin-bottom: 4px;
+}
+.notification-item:not(.unread) .message {
+    color: #d1d5db;
+}
+.time {
+    color: #9ca3af;
+}
+.dot {
+    width: 10px;
+    height: 10px;
+    background: #e50914;
+    border-radius: 50%;
+    margin-top: 6px;
+}
+@media (max-width: 576px) {
+    .notification-item {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .dot {
+        align-self: flex-end;
+    }
+}

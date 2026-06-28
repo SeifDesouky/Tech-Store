@@ -1,0 +1,37 @@
+.bord{
+  border:1px solid #2d3238;
+}
+label,textarea{
+  color: white;
+}
+.bg{
+background-color: #0f0f0f;
+}
+.form-control:focus,
+.form-select:focus {
+  border-color: #dc2626 !important;
+  box-shadow: 0 0 0 0.2rem rgba(220, 38, 38, 0.15) !important;
+  background-color: #2d3238 !important;
+  color: #fff !important;
+}
+
+.form-control::placeholder {
+  color: #6b7280 !important;
+  opacity: 1;
+}
+
+.form-select option {
+  background-color: #2d3238;
+  color: #fff;
+}
+
+button[type="submit"]:hover {
+  background-color: #b91c1c !important;
+  transition: background-color 0.2s ease;
+}
+
+.invalid-feedback {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+}

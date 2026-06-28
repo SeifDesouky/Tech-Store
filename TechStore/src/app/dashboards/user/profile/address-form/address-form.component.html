@@ -1,0 +1,140 @@
+<div class="overlay" (click)="onOverlayClick()">
+  <div class="address-card" (click)="$event.stopPropagation()">
+    <h5 class="title">{{ address ? 'Edit Address' : 'Add New Address' }}</h5>
+
+    <p class="subtitle">
+      Please provide your shipping details accurately to ensure smooth delivery.
+    </p>
+
+    <hr class="divider">
+
+    <div class="alert alert-danger" *ngIf="error">
+      {{ error }}
+    </div>
+
+    <form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
+      <!-- Label Field -->
+      <div class="mb-3">
+        <label for="label" class="form-label">Address Label</label>
+        <div class="input-wrapper">
+          <select
+            id="label"
+            class="form-select custom-input"
+            formControlName="label"
+            [class.is-invalid]="control['label'].invalid && control['label'].touched"
+          >
+            <option value="" disabled>Select label...</option>
+            <option value="Home">Home</option>
+            <option value="Work">Work</option>
+            <option value="Other">Other</option>
+          </select>
+          <i class="bi bi-tag-fill input-icon"></i>
+        </div>
+        <small class="error-message" *ngIf="control['label'].invalid && control['label'].touched">
+          Please select a valid label (Home, Work, or Other)
+        </small>
+      </div>
+
+      <!-- Street Field -->
+      <div class="mb-3">
+        <label for="street" class="form-label">Street Address</label>
+        <div class="input-wrapper">
+          <input
+            type="text"
+            id="street"
+            class="form-control custom-input"
+            placeholder="Enter your street"
+            formControlName="street"
+            [class.is-invalid]="control['street'].invalid && control['street'].touched"
+          />
+          <i class="bi bi-geo-alt-fill input-icon"></i>
+        </div>
+        <small class="error-message" *ngIf="control['street'].invalid && control['street'].touched">
+          Street address is required
+        </small>
+      </div>
+
+      <div class="row g-3">
+        <!-- City Field -->
+        <div class="col-6 mb-3">
+          <label for="city" class="form-label">City</label>
+          <div class="input-wrapper">
+            <input
+              type="text"
+              id="city"
+              class="form-control custom-input"
+              placeholder="City"
+              formControlName="city"
+              [class.is-invalid]="control['city'].invalid && control['city'].touched"
+            />
+          </div>
+          <small class="error-message" *ngIf="control['city'].invalid && control['city'].touched">
+            Required
+          </small>
+        </div>
+
+        <!-- governorate Field -->
+        <div class="col-6 mb-3">
+          <label for="governorate" class="form-label">Governorate</label>
+          <div class="input-wrapper">
+            <select
+              class="form-select custom-input"
+              formControlName="governorate"
+              [class.is-invalid]="control['governorate'].invalid && control['governorate'].touched"
+            >
+              <option value="" disabled>Select governorate</option>
+              <option *ngFor="let g of governorates" [value]="g.name">
+                {{ g.name }}
+              </option>
+            </select>
+          </div>
+          <small class="error-message" *ngIf="control['governorate'].invalid && control['governorate'].touched">
+            Required
+          </small>
+        </div>
+      </div>
+
+      <!-- Zip Code Field -->
+      <div class="mb-4">
+        <label for="zipCode" class="form-label">Zip Code</label>
+        <div class="input-wrapper">
+          <input
+            type="text"
+            id="zipCode"
+            class="form-control custom-input"
+            placeholder="e.g. 11511"
+            formControlName="zipCode"
+            [class.is-invalid]="control['zipCode'].invalid && control['zipCode'].touched"
+          />
+          <i class="bi bi-mailbox input-icon"></i>
+        </div>
+        <small class="error-message" *ngIf="control['zipCode'].invalid && control['zipCode'].touched">
+          <span *ngIf="control['zipCode'].errors?.['required']">Zip code is required</span>
+          <span *ngIf="control['zipCode'].errors?.['pattern']">Invalid zip code format</span>
+        </small>
+      </div>
+
+      <!-- Default Address Toggle -->
+      <div class="mb-4 d-flex align-items-center gap-2">
+        <input type="checkbox" id="isDefault" formControlName="isDefault" class="form-check-input custom-checkbox">
+        <label for="isDefault" class="form-label mb-0 clickable">Set as default address</label>
+      </div>
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        class="btn save-btn"
+        [disabled]="isLoading"
+      >
+        <span *ngIf="!isLoading">{{ address ? 'Update Address' : 'Add Address' }}</span>
+        <span *ngIf="isLoading" class="spinner-border spinner-border-sm"></span>
+      </button>
+
+    </form>
+
+    <!-- Cancel Button -->
+    <div class="links-container">
+      <a class="link" (click)="onOverlayClick()">Cancel</a>
+    </div>
+  </div>
+</div>

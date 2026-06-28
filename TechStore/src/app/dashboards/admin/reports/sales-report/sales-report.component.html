@@ -1,0 +1,94 @@
+<div class="sales-report-container">
+  <h1 class="page-title">Sales Report</h1>
+
+  <!-- Reports Navigation -->
+
+  <!-- Filters Section -->
+  <div class="filters-section">
+    <div class="filter-group">
+      <label for="dateFrom">From Date:</label>
+      <input
+        type="date"
+        id="dateFrom"
+        [(ngModel)]="dateFrom"
+        class="date-input">
+    </div>
+
+    <div class="filter-group">
+      <label for="dateTo">To Date:</label>
+      <input
+        type="date"
+        id="dateTo"
+        [(ngModel)]="dateTo"
+        class="date-input">
+    </div>
+
+    <button class="action-btn primary-btn" (click)="loadSalesReport()" [disabled]="isLoading">
+      {{ isLoading ? 'Loading...' : 'Load Report' }}
+    </button>
+
+    <button class="action-btn secondary-btn" (click)="clearFilters()">
+      Clear
+    </button>
+  </div>
+
+  <!-- Export Buttons -->
+  <div class="export-section">
+    <button class="export-btn" (click)="downloadCSV()" [disabled]="isDownloading">
+      📄 Download CSV
+    </button>
+    <button class="export-btn" (click)="downloadPDF()" [disabled]="isDownloading">
+      📑 Download PDF
+    </button>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-state">
+    <p>Loading sales data...</p>
+  </div>
+
+  <!-- Sales Data Table -->
+  <div *ngIf="!isLoading && salesData.length > 0" class="table-container">
+    <table class="sales-table">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Customer</th>
+          <th>Date</th>
+          <th>Amount</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sale of salesData">
+  <td>{{ sale?.OrderNumber }}</td>
+
+  <td>{{ sale?.user?.name || '—' }}</td>
+
+  <td>{{ sale?.Date | date:'short' }}</td>
+
+  <td>{{ sale?.TotalAmount?.toLocaleString() }} EG</td>
+
+  <td>
+    <span
+      class="status-badge"
+      [class]="'status-' + (sale?.Status || 'pending').toLowerCase()">
+      {{ sale?.Status || 'Pending' }}
+    </span>
+  </td>
+</tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!isLoading && salesData.length === 0 && !error" class="empty-state">
+    <p>No sales data available. Select a date range and click "Load Report".</p>
+  </div>
+</div>

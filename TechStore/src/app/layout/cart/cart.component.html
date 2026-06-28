@@ -1,0 +1,126 @@
+<div class="cart-container">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-8">
+        <div class="cart-header">
+          <h1 class="page-title">My Cart</h1>
+          <button class="clear-cart-btn" (click)="clearCart()" *ngIf="cartItems.length > 0" title="Clear entire cart">
+            <span class="trash-icon">🗑️</span>
+            Clear Cart
+          </button>
+        </div>
+
+        <div class="cart-items-container">
+          <div class="cart-item" *ngFor="let item of cartItems">
+            <div class="item-left">
+              <img [src]="item.image" [alt]="item.name" class="item-image">
+              <div class="item-info">
+                <h3 class="item-name">{{ item.name }}</h3>
+                <p class="item-price">{{ item.price.toLocaleString() }} <span class="currency">e.g</span></p>
+              </div>
+            </div>
+
+            <div class="item-quantity-control">
+              <button class="qty-btn minus-btn" (click)="decreaseQuantity(item)" aria-label="Decrease quantity">
+                <span>−</span>
+              </button>
+              <span class="quantity-badge">{{ item.quantity }}</span>
+              <button class="qty-btn plus-btn" (click)="increaseQuantity(item)" aria-label="Increase quantity">
+                <span>+</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="order-summary-card">
+          <div class="summary-row">
+            <span class="summary-label">Subtotal</span>
+            <span class="summary-value red-text">{{ subtotal.toLocaleString() }} <span class="currency-small">e.g</span></span>
+          </div>
+
+          <div class="summary-row">
+            <span class="summary-label">Fee</span>
+            <span class="summary-value">{{ (totals?.deliveryFee || 0).toLocaleString() }} <span class="currency-small">e.g</span></span>
+          </div>
+
+          <!-- Promo Code Section -->
+          <div class="coupon-section" *ngIf="isLoggedIn">
+            <!-- View Available Promos Button -->
+            <button 
+              class="view-promos-btn" 
+              (click)="togglePromoList()"
+              *ngIf="!appliedPromo && availablePromos.length > 0">
+              {{ showPromoList ? 'Hide' : 'View' }} Available Promos ({{ availablePromos.length }})
+            </button>
+
+            <!-- Available Promos List -->
+            <div class="available-promos-list" *ngIf="showPromoList && !appliedPromo">
+              <div class="promo-card" *ngFor="let promo of availablePromos" (click)="quickApplyPromo(promo.code)">
+                <div class="promo-card-header">
+                  <span class="promo-card-code">{{ promo.code }}</span>
+                  <span class="promo-card-badge">
+                    {{ promo.type === 'Percentage' ? promo.value + '%' : promo.value + ' EG' }} OFF
+                  </span>
+                </div>
+                <div class="promo-card-details">
+                  <span *ngIf="promo.minPurchase > 0">Min. purchase: {{ promo.minPurchase }} EG</span>
+                  <span class="promo-card-action">Click to apply →</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Manual Promo Input -->
+            <div class="promo-input-wrapper" *ngIf="!appliedPromo">
+              <input
+                type="text"
+                class="coupon-input"
+                placeholder="Enter promo code"
+                [(ngModel)]="couponCode"
+                [disabled]="isApplyingPromo"
+                (keyup.enter)="applyCoupon()">
+              <button 
+                class="apply-promo-btn" 
+                (click)="applyCoupon()"
+                [disabled]="isApplyingPromo || !couponCode.trim()">
+                {{ isApplyingPromo ? 'Applying...' : 'Apply' }}
+              </button>
+            </div>
+
+            <!-- Applied Promo Display -->
+            <div class="applied-promo" *ngIf="appliedPromo">
+              <div class="promo-badge">
+                <span class="promo-icon">✓</span>
+                <span class="promo-code">{{ appliedPromo.code }}</span>
+                <button class="remove-promo-btn" (click)="removePromo()" title="Remove promo">✕</button>
+              </div>
+            </div>
+
+            <!-- Error Message -->
+            <div class="promo-error" *ngIf="promoError">
+              {{ promoError }}
+            </div>
+          </div>
+
+          <!-- Discount Row -->
+          <div class="summary-row discount-row" *ngIf="discount > 0">
+            <span class="summary-label discount-label">Discount</span>
+            <span class="summary-value discount-value">-{{ discount.toLocaleString() }} <span class="currency-small">e.g</span></span>
+          </div>
+
+          <div class="summary-divider"></div>
+
+          <div class="summary-row total-row">
+            <span class="summary-label-total">Order Total</span>
+            <span class="summary-value-total">{{ orderTotal.toLocaleString() }} <span class="currency-small">e.g</span></span>
+          </div>
+
+          <button class="checkout-btn" (click)="proceedToCheckout()">
+            Proceed to Checkout
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

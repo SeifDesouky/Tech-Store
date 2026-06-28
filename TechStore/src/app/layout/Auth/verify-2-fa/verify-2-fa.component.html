@@ -1,0 +1,38 @@
+<div class="auth-overlay">
+  <div class="auth-card">
+    <div class="auth-header">
+      <h2>Two-Factor Authentication</h2>
+      <p>Enter the 6-digit code sent to your device</p>
+    </div>
+
+    <form [formGroup]="verifyForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <div class="input-wrapper">
+          <i class="bi bi-shield-lock"></i>
+          <input
+            type="text"
+            class="form-control code-input"
+            formControlName="code"
+            placeholder="000000"
+            maxlength="6"
+            [class.is-invalid]="code?.invalid && code?.touched"
+          />
+        </div>
+        <div class="error-message" *ngIf="code?.invalid && code?.touched">
+          <span *ngIf="code?.errors?.['required']">Verification code is required</span>
+          <span *ngIf="code?.errors?.['pattern']">Code must be 6 digits</span>
+          <span *ngIf="code?.errors?.['minlength'] || code?.errors?.['maxlength']">Code must be exactly 6 digits</span>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-primary" [disabled]="verifyForm.invalid || isLoading">
+        <span *ngIf="!isLoading">Verify Code</span>
+        <span *ngIf="isLoading">Verifying...</span>
+      </button>
+
+      <div class="auth-footer">
+        <p>Didn't receive the code? <a href="javascript:void(0)" (click)="resendCode()">Resend</a></p>
+      </div>
+    </form>
+  </div>
+</div>

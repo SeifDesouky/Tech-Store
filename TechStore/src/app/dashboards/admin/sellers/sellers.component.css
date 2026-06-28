@@ -1,0 +1,83 @@
+.page-container {
+    background-color: #0d0e10;
+    overflow-y: auto;
+    height: 100vh;
+}
+
+.custom-card {
+    background-color: #131416;
+    border: 1px solid #1b1c1f;
+}
+
+.custom-input {
+    background-color: #1b1c1f;
+    border: 1px solid #2a2d30;
+    color: white;
+}
+
+.custom-input:focus {
+    background-color: #1b1c1f;
+    color: white;
+    box-shadow: none;
+    border: 2px solid transparent;
+    background-image: linear-gradient(#1b1c1f, #1b1c1f), linear-gradient(135deg, #8f0418, #e71d39);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+}
+
+.input-group-text {
+    border-color: #2a2d30;
+}
+
+.table-header-custom {
+    background-color: #8f0418 !important;
+}
+
+.table-header-custom th {
+    background-color: #8f0418 !important;
+    color: white;
+    border: none;
+}
+p{
+    color: #9ca3af !important;
+}
+.table-dark {
+    --bs-table-bg: #131416;
+    --bs-table-border-color: #2a2d30;
+    --bs-table-hover-bg: #1e2324;
+}
+
+.custom-modal-content {
+    background-color: #131416;
+    border: 1px solid #2a2d30;
+}
+
+.custom-inner-card {
+    background-color: #1b1c1f;
+}
+
+.custom-modal-footer {
+    background-color: #131416;
+}
+
+.custom-btn-icon {
+    background-color: #1b1c1f;
+    border: 1px solid #2a2d30;
+}
+.custom-btn-icon:hover {
+    background-color: #2a2d30;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #131416;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #2a2d30;
+    border-radius: 4px;
+}

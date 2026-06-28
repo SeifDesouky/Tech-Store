@@ -1,0 +1,38 @@
+.footer {
+    background: linear-gradient(180deg, #242424, #393939f2);
+    color: #ddd;
+}
+.title {
+    font-size: 35px;
+    font-weight: 700;
+    color: white;
+}
+.footer-title {
+    color: #e50914;
+    font-size: 18px;
+    margin-bottom: 15px;
+    font-weight: 800;
+}
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+.footer-links li {
+    margin-bottom: 8px;
+}
+.footer-links a {
+    color: #bbb;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+.footer-links a:hover {
+    color: #ff3b3b;  
+    padding-left: 5px;
+}
+
+.footer-bottom {
+    color: #999;
+    font-size: 14px;
+    border-top: 1px solid #333;
+    padding-top: 15px;
+}

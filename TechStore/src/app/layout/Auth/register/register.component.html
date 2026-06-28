@@ -1,0 +1,140 @@
+<div class="overlay" (click)="onOverlayClick()">
+  <div class="register-card" (click)="$event.stopPropagation()">
+    <h5 class="title">Create Account</h5>
+    
+    <p class="subtitle">
+      Join our marketplace and start your journey with us today
+    </p>
+
+    <hr class="divider">
+
+    <div class="alert alert-danger" *ngIf="error">
+      {{ error }}
+    </div>
+
+    <div class="form-scroll-container">
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <!-- Name Field -->
+        <div class="mb-3">
+          <label for="name" class="form-label">Full Name</label>
+          <div class="input-wrapper">
+            <input
+              type="text"
+              id="name"
+              class="form-control custom-input"
+              placeholder="Enter your full name"
+              formControlName="name"
+              [class.is-invalid]="name?.invalid && name?.touched"
+            />
+            <i class="bi bi-person-fill input-icon"></i>
+          </div>
+          <small class="error-message" *ngIf="name?.invalid && name?.touched">
+            <span *ngIf="name?.errors?.['required']">Name is required</span>
+          </small>
+        </div>
+
+        <!-- Email Field -->
+        <div class="mb-3">
+          <label for="email" class="form-label">Email Address</label>
+          <div class="input-wrapper">
+            <input
+              type="email"
+              id="email"
+              class="form-control custom-input"
+              placeholder="Enter your email"
+              formControlName="email"
+              [class.is-invalid]="email?.invalid && email?.touched"
+            />
+            <i class="bi bi-envelope-fill input-icon"></i>
+          </div>
+          <small class="error-message" *ngIf="email?.invalid && email?.touched">
+            <span *ngIf="email?.errors?.['required']">Email is required</span>
+            <span *ngIf="email?.errors?.['email']">Invalid email format</span>
+          </small>
+        </div>
+
+        <!-- Phone Field -->
+        <div class="mb-3">
+          <label for="phone" class="form-label">Phone Number</label>
+          <div class="input-wrapper">
+            <input
+              type="text"
+              id="phone"
+              class="form-control custom-input"
+              placeholder="Enter your phone number"
+              formControlName="phone"
+              [class.is-invalid]="phone?.invalid && phone?.touched"
+            />
+            <i class="bi bi-phone-fill input-icon"></i>
+          </div>
+          <small class="error-message" *ngIf="phone?.invalid && phone?.touched">
+            <span *ngIf="phone?.errors?.['required']">Phone is required</span>
+          </small>
+        </div>
+
+        <!-- Password Field -->
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <div class="input-wrapper">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              id="password"
+              class="form-control custom-input"
+              placeholder="Enter your password"
+              formControlName="password"
+              [class.is-invalid]="password?.invalid && password?.touched"
+            />
+            <i
+              [class]="showPassword ? 'bi bi-eye-fill' : 'bi bi-eye-slash-fill'"
+              class="input-icon clickable"
+              (click)="togglePassword()"
+            ></i>
+          </div>
+          <small class="error-message" *ngIf="password?.invalid && password?.touched">
+            <span *ngIf="password?.errors?.['required']">Password is required</span>
+            <span *ngIf="password?.errors?.['minlength']">Password must be at least 6 characters</span>
+          </small>
+        </div>
+
+        <!-- Role Field -->
+        <div class="mb-4">
+          <label for="role" class="form-label">Account Type</label>
+          <div class="input-wrapper">
+            <select
+              id="role"
+              class="form-control custom-input"
+              formControlName="role"
+              [class.is-invalid]="role?.invalid && role?.touched"
+            >
+              <option value="" disabled selected>Select your role</option>
+              <option value="buyer">Buyer</option>
+              <option value="seller">Seller</option>
+            </select>
+            <i class="bi bi-shield-check-fill input-icon"></i>
+          </div>
+          <small class="error-message" *ngIf="role?.invalid && role?.touched">
+            <span *ngIf="role?.errors?.['required']">Role is required</span>
+          </small>
+        </div>
+
+        <!-- Register Button -->
+        <button
+          type="submit"
+          class="btn register-btn"
+          [disabled]="registerForm.invalid || isLoading"
+        >
+          <span *ngIf="!isLoading">Create Account</span>
+          <span *ngIf="isLoading">Creating Account...</span>
+        </button>
+      </form>
+    </div>
+
+    <!-- Links -->
+    <div class="links-container">
+      <span class="link-text">
+        Already have an account?
+        <a class="link accent-link" (click)="onLoginClick()">Sign In</a>
+      </span>
+    </div>
+  </div>
+</div>

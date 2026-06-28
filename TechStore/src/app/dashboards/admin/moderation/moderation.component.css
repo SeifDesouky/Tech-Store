@@ -1,0 +1,9 @@
+:host {
+    display: block;
+    background-color: #0d0e10;
+    height: 100vh;
+    overflow-y: auto;
+}
+.active{
+    background:linear-gradient(45deg, #d50000, #ff4d4d);
+}

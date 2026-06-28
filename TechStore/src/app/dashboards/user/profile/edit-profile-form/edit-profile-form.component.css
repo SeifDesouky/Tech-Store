@@ -1,0 +1,198 @@
+/* Overlay */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    backdrop-filter: blur(4px);
+}
+
+/* Card */
+.profile-card {
+    background: linear-gradient(180deg, #1b1b1b, #141414);
+    border-radius: 28px;
+    padding: 2.75rem 2.5rem;
+    width: 100%;
+    max-width: 420px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border: 1px solid rgba(255, 46, 46, 0.35);
+    box-shadow: 0 0 40px rgba(255, 46, 46, 0.08);
+    position: relative;
+    scrollbar-width: thin;
+    scrollbar-color: #ff2e2e #111;
+}
+
+.profile-card::-webkit-scrollbar {
+    width: 6px;
+}
+
+.profile-card::-webkit-scrollbar-track {
+    background: #111;
+    border-radius: 10px;
+}
+
+.profile-card::-webkit-scrollbar-thumb {
+    background: #ff2e2e;
+    border-radius: 10px;
+}
+
+/* Title */
+.title {
+    color: #ffffff;
+    font-size: 26px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+/* Subtitle */
+.subtitle {
+    color: #9e9e9e;
+    font-size: 14px;
+    text-align: center;
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+}
+
+/* Divider */
+.divider {
+    border: none;
+    height: 1px;
+    background: linear-gradient(to right,
+            transparent,
+            #ff2e2e,
+            transparent);
+    margin: 1.75rem 0;
+}
+
+/* Labels */
+.form-label {
+    color: #e0e0e0;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 0.35rem;
+}
+
+/* Input wrapper */
+.input-wrapper {
+    position: relative;
+}
+
+/* Inputs */
+.custom-input {
+    width: 100%;
+    height: 50px;
+    background-color: #111111 !important;
+    border: 1px solid rgba(255, 46, 46, 0.4) !important;
+    border-radius: 26px !important;
+    padding: 0 1.25rem 0 3rem;
+    /* Adjusted for icon on left if needed, but let's stick to right or standardize */
+    color: #ffffff !important;
+    font-size: 14px;
+    transition: all 0.25s ease;
+}
+
+/* Adjusting input padding for left icon */
+.input-wrapper input {
+    padding-left: 3rem;
+    padding-right: 1.25rem;
+}
+
+.custom-input::placeholder {
+    color: #7d7d7d;
+}
+
+.custom-input:focus {
+    border-color: #ff2e2e !important;
+    box-shadow: 0 0 0 3px rgba(255, 46, 46, 0.15) !important;
+    background-color: #0f0f0f !important;
+}
+
+/* Icons */
+.input-icon {
+    position: absolute;
+    left: 1.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #8a8a8a;
+}
+
+/* Errors */
+.error-message {
+    display: block;
+    margin-top: 0.3rem;
+    font-size: 12px;
+    color: #ff2e2e;
+}
+
+/* Button */
+.save-btn {
+    width: 100%;
+    height: 50px;
+    border-radius: 28px;
+    background: linear-gradient(135deg, #ff2e2e, #d81b1b);
+    border: none;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    margin-bottom: 1.75rem;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.save-btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(255, 46, 46, 0.35);
+}
+
+.save-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Links */
+.links-container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.link {
+    font-size: 14px;
+    color: #dcdcdc;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.link:hover {
+    color: #ff2e2e;
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+    .profile-card {
+        padding: 2.25rem 1.75rem;
+        margin: 1rem;
+    }
+}
+
+.alert-danger {
+    color: #ff2e2e;
+    background-color: rgba(255, 46, 46, 0.1);
+    border: 1px solid rgba(255, 46, 46, 0.2);
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    text-align: center;
+}

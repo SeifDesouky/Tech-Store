@@ -1,0 +1,89 @@
+<main *ngIf="product">
+  <div class="product-hero">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="product-images">
+            <div class="main-image-container">
+              <img [src]="selectedImage" class="main-image" [alt]="product.name">
+            </div>
+
+            <div class="thumbnail-carousel">
+              <div class="thumbnails-container">
+                <div
+                  *ngFor="let t of product.images"
+                  class="thumbnail-item"
+                  [class.active]="t === selectedImage"
+                  (click)="selectThumbnail(t)">
+                  <img [src]="t">
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="product-info">
+
+            <div class="brand-badge">LOQ</div>
+
+            <h1 class="product-title">{{ product.name }}</h1>
+            <p class="product-subtitle">{{ product.description }}</p>
+
+            <div class="rating-section">
+              <div class="stars">
+                <i class="bi bi-star-fill" *ngFor="let s of [].constructor(getRatingStars().full)"></i>
+                <i class="bi bi-star-half" *ngIf="getRatingStars().half"></i>
+                <i class="bi bi-star" *ngFor="let s of [].constructor(getRatingStars().empty)"></i>
+              </div>
+              <span class="review-count">{{ product.reviewCount }} reviews</span>
+            </div>
+
+            <div class="price-section">
+              <span class="price">{{ product.price }}</span>
+              <span class="currency">.{{ product.currency }}</span>
+            </div>
+
+            <div class="action-buttons">
+              <button class="btn btn-add-cart" (click)="addToCart()">Add to cart</button>
+              <button class="btn btn-buy-now" (click)="buyNow()">Buy Now</button>
+            </div>
+
+            <div class="specs-tabs">
+
+              <div class="tabs-header">
+                <button class="tab-btn" [class.active]="activeTab === 'about'" (click)="setActiveTab('about')">About</button>
+              </div>
+
+              <div class="tabs-content">
+                <div *ngIf="activeTab === 'about'" class="tab-pane">
+                  <p>{{product.description}}</p>
+                </div>
+
+                <div *ngIf="activeTab === 'reviews'" class="tab-pane">
+                  <p>Customer reviews will appear here.</p>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</main>
+<app-related-products  *ngIf="similarProduct.length" [products]="similarProduct"></app-related-products>
+
+<app-product-review *ngIf="reviews.length" [reviews]="reviews"></app-product-review>
+
+<app-product-specs
+  *ngIf="product"
+  [technicalSpecs]="product.technicalSpecs"
+  [dimensions]="product.dimensions"
+  [weight]="product.weight"
+  [usedDetails]="product.usedDetails"
+  [importedDetails]="product.importedDetails">
+</app-product-specs>

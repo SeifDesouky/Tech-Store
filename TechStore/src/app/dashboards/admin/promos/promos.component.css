@@ -1,0 +1,303 @@
+
+.promotions-container {
+  padding: 1.5rem;
+  background-color: #0a0b0d;
+  overflow-y: auto;
+  height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ===================================
+   Page Header
+=================================== */
+.page-header {
+  margin-bottom: 2rem;
+}
+
+.page-title {
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.page-subtitle {
+  color: #9ca3af;
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+
+/* ===================================
+   Stats Cards
+=================================== */
+.stat-card {
+  background-color: #131416;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+}
+
+.stat-label {
+  color: #9ca3af;
+  font-size: 0.875rem;
+  margin-bottom: 0.75rem;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0;
+}
+
+.stat-blue { color: #3b82f6; }
+.stat-green { color: #10b981; }
+.stat-purple { color: #8b5cf6; }
+.stat-orange { color: #f59e0b; }
+
+/* ===================================
+   Form Card
+=================================== */
+.form-card {
+  background-color: #131416;
+  padding: 2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.form-title {
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  color: #9ca3af;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+/* ===================================
+   Custom Form Controls
+=================================== */
+.custom-input {
+  background-color: #1b1c1f !important;
+  border: 1px solid #2a2d30 !important;
+  color: #ffffff !important;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+}
+
+.custom-input:focus {
+  background-color: #1b1c1f !important;
+  border: 2px solid #e71d39 !important;
+  box-shadow: 0 0 0 0.2rem rgba(231, 29, 57, 0.25) !important;
+  color: #ffffff !important;
+}
+
+.custom-input::placeholder {
+  color: #6b7280;
+}
+
+.custom-input:disabled {
+  background-color: #0f1011 !important;
+  opacity: 0.6;
+}
+
+/* ===================================
+   Custom Buttons
+=================================== */
+.btn-primary-custom {
+  background: linear-gradient(135deg, #8f0418, #e71d39);
+  border: none;
+  color: #ffffff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+}
+
+.btn-primary-custom:hover:not(:disabled) {
+  filter: brightness(1.15);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(231, 29, 57, 0.4);
+}
+
+.btn-primary-custom:active {
+  transform: translateY(0);
+}
+
+.btn-primary-custom:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-secondary-custom {
+  background-color: #1b1c1f;
+  border: 1px solid #2a2d30;
+  color: #ffffff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+}
+
+.btn-secondary-custom:hover {
+  background-color: #2a2d30;
+  border-color: #3a3d40;
+  color: #ffffff;
+}
+
+.btn-danger-custom {
+  background-color: #dc3545;
+  border: none;
+  color: #ffffff;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+  transition: all 0.2s;
+}
+
+.btn-danger-custom:hover {
+  background-color: #bb2d3b;
+  filter: brightness(1.2);
+  color: #ffffff;
+}
+
+.gap-2 {
+  gap: 0.5rem;
+}
+
+/* ===================================
+   Table Card
+=================================== */
+.table-card {
+  background-color: #131416;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.table-header {
+  background: linear-gradient(135deg, #8f0418, #e71d39);
+  padding: 1.5rem;
+}
+
+.table-title {
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+}
+
+/* ===================================
+   Custom Table
+=================================== */
+.custom-table {
+  background-color: transparent;
+}
+
+.custom-table thead tr {
+  background-color: #1b1c1f;
+}
+
+.custom-table thead th {
+  color: #9ca3af;
+  font-weight: 500;
+  font-size: 0.875rem;
+  padding: 1rem 1.5rem;
+  border: none;
+  text-align: left;
+}
+
+.custom-table tbody tr {
+  background-color: #131416;
+  border-bottom: 1px solid #1b1c1f;
+  transition: all 0.2s;
+}
+
+.custom-table tbody tr:nth-child(even) {
+  background-color: #1b1c1f;
+}
+
+.custom-table tbody tr:hover {
+  background-color: #1e2324 !important;
+  transform: scale(1.01);
+}
+
+.custom-table tbody td {
+  color: #ffffff;
+  padding: 1rem 1.5rem;
+  border: none;
+  vertical-align: middle;
+  text-align: left;
+}
+
+/* ===================================
+   Responsive Utilities
+=================================== */
+@media (max-width: 768px) {
+  .promotions-container {
+    padding: 1rem;
+  }
+  
+  .page-title {
+    font-size: 1.5rem;
+  }
+  
+  .stat-value {
+    font-size: 1.75rem;
+  }
+  
+  .form-card {
+    padding: 1.5rem;
+  }
+  
+  .custom-table thead th,
+  .custom-table tbody td {
+    padding: 0.75rem;
+    font-size: 0.875rem;
+  }
+}
+
+/* ===================================
+   Scrollbar Styling
+=================================== */
+.table-responsive::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+  background: #1b1c1f;
+  border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+  background: #e71d39;
+  border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+  background: #8f0418;
+}
+.spinner-border-sm {
+  width: 1rem;
+  height: 1rem;
+  border-width: 0.15em;
+}
+.custom-table tbody tr td i.bi-inbox {
+  color: #6b7280;
+  opacity: 0.5;
+}

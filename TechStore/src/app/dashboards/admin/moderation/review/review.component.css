@@ -1,0 +1,24 @@
+
+.dark-card {
+    background-color: #131416;
+    border: 1px solid #2d2d2d;
+    transition: transform 0.2s ease;
+}
+.text-secondary {
+    color: #9ca3af !important;
+}
+
+.btn-danger-custom {
+    background-color: #dc3545;
+    border: none;
+    color: #ffffff;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    transition: all 0.2s;
+}
+
+.btn-danger-custom:hover {
+    background-color: #bb2d3b;
+    filter: brightness(1.2);
+    color: #ffffff;
+}

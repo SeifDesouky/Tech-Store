@@ -1,0 +1,55 @@
+.title {
+    font-size: 40px;
+    font-weight: 700;
+    color: white;
+}
+
+.service-card {
+    position: relative;
+    padding: 30px 20px;
+    padding-top: 55px;
+    border-radius: 18px;
+    color: white;
+    margin-bottom: 15px;
+    transition: 0.3s ease;
+    background: 
+        linear-gradient(135deg,#370101cc, #c51717),  /* Red gradient */
+        rgba(255, 255, 255, 0.10); /* Glass layer */
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+.icon {
+    position: absolute;
+    top: -28px;
+    left: 20px;
+    width: 55px;
+    height: 55px;
+    background: white;
+    color: #e50914;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+.service-card h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+.sevice-card p {
+    font-size: 15px;
+    line-height: 1.5;
+    color: #f0f0f0;
+}

@@ -1,0 +1,66 @@
+.sidebar{
+    box-shadow: 1px 0 10px #c419308a;
+    height: 100vh;
+    background: #00000066;
+}
+.header {
+    padding: 12px 12px 0px 12px;
+    border-bottom: 1px solid #c41931;
+}
+.header h3{
+    font-size: 20px;
+}
+.header h5 ,.header p{
+    font-size: 15px;
+    color:#9ca3af
+}
+.icon{
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    background:linear-gradient(135deg, #d50000, #ff4d4d);
+}
+.nav-link{
+    color: #9ca3af;
+    padding: 11px;
+    margin: 5px 0;
+    cursor: pointer;
+}
+.nav-link:hover{
+    background: #b7b7b777;
+    color: #fff;
+    border-radius: 5px;
+}
+.active-link{
+    background: linear-gradient(45deg, #d50000, #ff4d4d);
+    color: #fff;
+    border-radius: 5px;
+}
+.slider-icon{
+    color: white;
+    background: linear-gradient(45deg, #d50000, #ff4d4d) !important;
+    border-radius: 10px;
+    display: inline-block;
+    padding: 7px;
+    font-size: 25px;
+    cursor: pointer;
+}
+.offcanvas{
+    padding: 1%;
+    width: 42%;
+    background: linear-gradient(180deg, #272727e8, #171717f2);
+    color: #fff;
+}
+.btn-close{
+    position: absolute;
+    right: 30px;
+    top: 10px;
+    filter: invert(22%) sepia(93%) saturate(7470%) hue-rotate(356deg) brightness(104%) contrast(106%);
+    opacity: 1;
+}
+

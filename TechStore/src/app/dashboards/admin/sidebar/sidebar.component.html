@@ -1,0 +1,96 @@
+
+<div class="d-none d-lg-block">
+    <div class="p-3 sidebar">
+        <div class="header">
+            <div class="d-flex mb-1">
+                <div class="icon">
+                    <i class="bi bi-person-fill"></i>
+                </div>
+                <div>
+                    <h3 class="">Admin Panel</h3>
+                    <h5>username</h5>
+                    <p>email</p>
+                </div>
+            </div>
+        </div>
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0 p-2">
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" routerLink="/admin/dashboard" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }"><i class="bi bi-clipboard-data"></i> Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/admin/users" routerLinkActive="active-link"><i class="fa-solid fa-users"></i> Users</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/admin/seller" routerLinkActive="active-link"><i class="fa-solid fa-users"></i> Seller</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/admin/products" routerLinkActive="active-link"><i class="fa-solid fa-cube"></i> Products</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/admin/orders" routerLinkActive="active-link"><i class="bi bi-cart-plus"></i> Orders</a>
+            </li> 
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/admin/promos" routerLinkActive="active-link"><i class="fa-solid fa-tag"></i> Promotions</a>
+            </li> 
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/admin/moderation" routerLinkActive="active-link"><i class="bi bi-shield"></i> Moderations</a>
+            </li>
+            <div class="actions mt-5">
+                <!-- <li class="nav-item back-btn">
+                    <a class="nav-link" (click)="back()"><i class="fa-solid fa-arrow-left"></i> Back</a>
+                </li>  -->
+
+                <li class="nav-item logout-btn">
+                    <a class="nav-link" (click)="logout()">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i> LogOut
+                    </a>
+                </li> 
+            </div>  
+            
+        </ul>
+    </div>
+</div>
+
+<!-- offcanvas -->
+<div class="slider-icon d-lg-none" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
+    <i class="fa-solid fa-sliders"></i>
+</div>
+
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+    <div class="position-relative">
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body mt-3">
+        <div class="bgdark-glass rounded-4">
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0 p-2">
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" routerLink="/admin/dashboard" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }"><i class="fa-regular fa-admin"></i> Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/admin/users" routerLinkActive="active-link"><i class="fa-solid fa-cube"></i> Users</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/admin/reviews" routerLinkActive="active-link"><i class="fa-regular fa-star"></i> Reviews</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/admin/notification" routerLinkActive="active-link"><i class="fa-regular fa-bell"></i> Notifications</a>
+            </li> 
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/admin/wishlist" routerLinkActive="active-link"><i class="fa-regular fa-heart"></i> Wishlist</a>
+            </li> 
+            <div class="actions mt-5">
+                <!-- <li class="nav-item back-btn">
+                    <a class="nav-link" (click)="back()"><i class="fa-solid fa-arrow-left"></i> Back</a>
+                </li>  -->
+
+                <li class="nav-item logout-btn" (click)="logout()">
+                    <a class="nav-link"><i class="fa-solid fa-arrow-right-from-bracket"></i> LogOut</a>
+                </li> 
+            </div>  
+            
+        </ul>
+
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,239 @@
+<div class="promotions-container">
+    <!-- Header -->
+    <div class="page-header">
+        <h1 class="page-title">Promotions & Campaigns</h1>
+        <p class="page-subtitle">Create and manage promotional offers and discounts</p>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row g-4 mb-4">
+        <div class="col-12 col-md-6 col-lg-3">
+        <div class="stat-card">
+            <p class="stat-label">Total Campaigns</p>
+            <p class="stat-value stat-blue">{{ stats.totalCampaigns }}</p>
+        </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3">
+        <div class="stat-card">
+            <p class="stat-label">Total Usage</p>
+            <p class="stat-value stat-green">{{ stats.totalSent }}</p>
+        </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3">
+        <div class="stat-card">
+            <p class="stat-label">Active Promos</p>
+            <p class="stat-value stat-purple">{{ stats.avgOpenRate }}</p>
+        </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3">
+        <div class="stat-card">
+            <p class="stat-label">Usage Rate</p>
+            <p class="stat-value stat-orange">{{ stats.avgClickRate }}</p>
+        </div>
+        </div>
+    </div>
+
+    <!-- Create Promo Form -->
+    <div class="form-card mb-4">
+        <h2 class="form-title">Create New Promotion</h2>
+        <form [formGroup]="promoForm" (ngSubmit)="onSubmit()">
+        
+        <!-- Code Input -->
+        <div class="mb-3">
+            <label class="form-label">
+            Promo Code <span class="text-danger">*</span>
+            </label>
+            <input 
+            type="text" 
+            class="form-control custom-input" 
+            formControlName="code"
+            placeholder="e.g., SUMMER2024"
+            />
+            <div *ngIf="promoForm.get('code')?.invalid && promoForm.get('code')?.touched" 
+                class="invalid-feedback d-block">
+            Promo code is required (minimum 3 characters)
+            </div>
+        </div>
+
+        <!-- Type Select -->
+        <div class="mb-3">
+            <label class="form-label">
+            Promotion Type <span class="text-danger">*</span>
+            </label>
+            <select class="form-select custom-input" formControlName="type">
+            <option *ngFor="let type of promoTypes" [value]="type.value">
+                {{ type.label }}
+            </option>
+            </select>
+        </div>
+
+        <!-- Value and Min Purchase Row -->
+        <div class="row g-3 mb-3">
+            <div class="col-12 col-md-6">
+            <label class="form-label">
+                Value <span class="text-danger">*</span>
+            </label>
+            <input 
+                type="number" 
+                class="form-control custom-input" 
+                formControlName="value"
+                placeholder="e.g., 20"
+            />
+            </div>
+            <div class="col-12 col-md-6">
+            <label class="form-label">
+                Minimum Purchase <span class="text-danger">*</span>
+            </label>
+            <input 
+                type="number" 
+                class="form-control custom-input" 
+                formControlName="minPurchase"
+                placeholder="e.g., 500"
+            />
+            </div>
+        </div>
+
+        <!-- Date Range Row -->
+        <div class="row g-3 mb-3">
+            <div class="col-12 col-md-6">
+            <label class="form-label">
+                Start Date <span class="text-danger">*</span>
+            </label>
+            <input 
+                type="date" 
+                class="form-control custom-input" 
+                formControlName="startDate"
+            />
+            </div>
+            <div class="col-12 col-md-6">
+            <label class="form-label">
+                End Date <span class="text-danger">*</span>
+            </label>
+            <input 
+                type="date" 
+                class="form-control custom-input" 
+                formControlName="endDate"
+            />
+            </div>
+        </div>
+
+        <!-- Usage Limits Row -->
+        <div class="row g-3 mb-4">
+            <div class="col-12 col-md-6">
+            <label class="form-label">
+                Usage Limit Per User <span class="text-danger">*</span>
+            </label>
+            <input 
+                type="number" 
+                class="form-control custom-input" 
+                formControlName="usageLimitPerUser"
+            />
+            </div>
+            <div class="col-12 col-md-6">
+            <label class="form-label">
+                Total Usage Limit <span class="text-danger">*</span>
+            </label>
+            <input 
+                type="number" 
+                class="form-control custom-input" 
+                formControlName="totalUsageLimit"
+            />
+            </div>
+        </div>
+
+        <!-- Form Buttons -->
+        <div class="d-flex gap-2 flex-wrap">
+            <button 
+            type="submit" 
+            class="btn btn-primary-custom" 
+            [disabled]="promoForm.invalid || loading">
+            <span *ngIf="!loading">
+                <i class="bi bi-plus-circle me-2"></i>Create Promotion
+            </span>
+            <span *ngIf="loading">
+                <span class="spinner-border spinner-border-sm me-2"></span>
+                Creating...
+            </span>
+            </button>
+            <button 
+            type="button" 
+            class="btn btn-secondary-custom" 
+            (click)="promoForm.reset()">
+            <i class="bi bi-x-circle me-2"></i>Clear Fields
+            </button>
+        </div>
+        </form>
+    </div>
+
+    <!-- Promos Table -->
+    <div class="table-card">
+        <div class="table-header">
+        <h2 class="table-title">
+            <i class="bi bi-tag-fill me-2"></i>Active Promotions
+        </h2>
+        </div>
+        <div class="table-responsive">
+        <table class=" custom-table mb-0">
+            <thead>
+            <tr>
+                <th>Code</th>
+                <th>Type</th>
+                <th>Value</th>
+                <th>Min Purchase</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Usage</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let promo of promos; let i = index">
+                <td class="fw-bold">{{ promo.code }}</td>
+                <td>{{ getTypeLabel(promo.type) }}</td>
+                <td>
+                <span *ngIf="promo.type === 'Percentage'">{{ promo.value }}%</span>
+                <span *ngIf="promo.type === 'Fixed'">${{ promo.value }}</span>
+                <span *ngIf="promo.type === 'FreeShipping'">Free Shipping</span>
+                <span *ngIf="promo.type === 'BuyXGetY'">{{ promo.value }}</span>
+                </td>
+                <td>${{ promo.minPurchase }}</td>
+                <td>{{ promo.startDate|date }}</td>
+                <td>
+                <span [class.text-danger]="isExpired(promo.endDate)">
+                    {{ promo.endDate|date }}
+                </span>
+                </td>
+                <td>
+                <span class="text-info">
+                    {{ promo.usedCount || 0 }} / {{ promo.totalUsageLimit }}
+                </span>
+                </td>
+                <td>
+                <span 
+                    class="badge"
+                    [class.badge-success-custom]="promo.active && !isExpired(promo.endDate)"
+                    [class.badge-danger-custom]="!promo.active || isExpired(promo.endDate)">
+                    {{ promo.active && !isExpired(promo.endDate) ? 'Active' : 'Inactive' }}
+                </span>
+                </td>
+                <td>
+                <button 
+                    class="btn btn-sm btn-danger-custom" 
+                    (click)="deletePromo(promo._id)"
+                    title="Delete">
+                    <i class="bi bi-trash"></i>
+                </button>
+                </td>
+            </tr>
+            <tr *ngIf="promos.length === 0">
+                <td colspan="9" class="text-center text-muted py-4">
+                <i class="bi bi-inbox fs-2 d-block mb-2"></i>
+                No promotions available
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>

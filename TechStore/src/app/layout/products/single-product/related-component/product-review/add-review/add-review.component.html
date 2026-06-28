@@ -1,0 +1,88 @@
+<div class="overlay" (click)="onOverlayClick()">
+  <div class="review-card" (click)="$event.stopPropagation()">
+    <h5 class="title">Write a Review</h5>
+
+    <p class="subtitle">
+      Share your experience with this product to help others make better choices.
+    </p>
+
+    <hr class="divider">
+
+    <div class="alert alert-danger" *ngIf="error">
+      {{ error }}
+    </div>
+
+    <form [formGroup]="reviewForm" (ngSubmit)="onSubmit()">
+      <!-- Rating Field -->
+      <div class="mb-3 text-center">
+        <label class="form-label d-block mb-2">Overall Rating</label>
+        <div class="rating-selector">
+          <button 
+            type="button" 
+            *ngFor="let star of stars" 
+            class="star-btn"
+            [class.active]="star <= reviewForm.value.rating"
+            (click)="setRating(star)">
+            <i class="bi" [class.bi-star-fill]="star <= reviewForm.value.rating" [class.bi-star]="star > reviewForm.value.rating"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Condition Field -->
+      <div class="mb-3">
+        <label class="form-label">Product Condition</label>
+        <div class="condition-selector">
+          <button 
+            type="button" 
+            class="condition-btn" 
+            [class.active]="reviewForm.value.productCondition === 'New'"
+            (click)="setCondition('New')">New</button>
+          <button 
+            type="button" 
+            class="condition-btn" 
+            [class.active]="reviewForm.value.productCondition === 'Used'"
+            (click)="setCondition('Used')">Used</button>
+          <button 
+            type="button" 
+            class="condition-btn" 
+            [class.active]="reviewForm.value.productCondition === 'Imported'"
+            (click)="setCondition('Imported')">Imported</button>
+        </div>
+      </div>
+
+      <!-- Comment Field -->
+      <div class="mb-4">
+        <label for="comment" class="form-label">Your Review</label>
+        <div class="input-wrapper">
+          <textarea
+            id="comment"
+            class="form-control custom-textarea"
+            placeholder="What did you like or dislike about this product?"
+            formControlName="comment"
+            [class.is-invalid]="control['comment'].invalid && control['comment'].touched"
+          ></textarea>
+        </div>
+        <small class="error-message" *ngIf="control['comment'].invalid && control['comment'].touched">
+          <span *ngIf="control['comment'].errors?.['required']">Review comment is required</span>
+          <span *ngIf="control['comment'].errors?.['minlength']">Please write at least 10 characters</span>
+        </small>
+      </div>
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        class="btn submit-btn"
+        [disabled]="isLoading"
+      >
+        <span *ngIf="!isLoading">Submit Review</span>
+        <span *ngIf="isLoading" class="spinner-border spinner-border-sm"></span>
+      </button>
+
+    </form>
+
+    <!-- Cancel Button -->
+    <div class="links-container">
+      <a class="link" (click)="onOverlayClick()">Cancel</a>
+    </div>
+  </div>
+</div>

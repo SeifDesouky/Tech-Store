@@ -1,0 +1,66 @@
+<div class="insights-container">
+  <div class="header">
+    <h1 class="page-title">Customer Insights</h1>
+    <button class="refresh-btn" (click)="refresh()" [disabled]="isLoading">
+      {{ isLoading ? 'Loading...' : 'Refresh' }}
+    </button>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-state">
+    <p>Loading customer insights...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+    <button (click)="refresh()">Try Again</button>
+  </div>
+
+  <!-- Insights Content -->
+  <div *ngIf="!isLoading && !error && insights" class="insights-content">
+    <!-- Key Metrics -->
+    <div class="metrics-row">
+      <div class="metric-card">
+        <h3 class="metric-label">Retention Rate</h3>
+        <p class="metric-value">{{ insights.retentionRate }}</p>
+      </div>
+
+      <div class="metric-card">
+        <h3 class="metric-label">Average CLV</h3>
+        <p class="metric-value">{{ insights.averageCLV }}</p>
+      </div>
+    </div>
+
+    <!-- Top Customers Table -->
+    <div class="section">
+      <h2 class="section-title">Top Customers</h2>
+      
+      <div class="table-container">
+        <table class="customers-table">
+          <thead>
+            <tr>
+              <th>Customer Name</th>
+              <th>Email</th>
+              <th>Total Spent</th>
+              <th>Total Orders</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let customer of insights.topCustomers">
+              <td class="customer-name">{{ customer.CustomerName }}</td>
+              <td class="customer-email">{{ customer.CustomerEmail }}</td>
+              <td class="total-spent">{{ customer.TotalSpent.toLocaleString() }} EG</td>
+              <td>{{ customer.TotalOrders }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Empty State for Top Customers -->
+      <div *ngIf="insights.topCustomers.length === 0" class="empty-state">
+        <p>No top customers data available.</p>
+      </div>
+    </div>
+  </div>
+</div>

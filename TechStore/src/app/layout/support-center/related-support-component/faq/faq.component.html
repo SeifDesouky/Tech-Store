@@ -1,0 +1,38 @@
+    <div class="faq-section">
+      <h2 class="faq-title mb-4">Frequently Asked Questions</h2>
+
+      <div *ngFor="let category of filteredCategories; let catIndex = index" class="faq-category mb-4">
+        <div class="category-header">
+          <h3 class="category-name">{{ category.name }}</h3>
+        </div>
+
+        <div class="accordion" [attr.id]="'accordion-' + catIndex">
+          <div *ngFor="let item of category.items; let itemIndex = index" class="accordion-item">
+            <h2 class="accordion-header" [attr.id]="'heading-' + catIndex + '-' + itemIndex">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                [attr.data-bs-target]="'#collapse-' + catIndex + '-' + itemIndex"
+                aria-expanded="false"
+                [attr.aria-controls]="'collapse-' + catIndex + '-' + itemIndex">
+                {{ item.question }}
+              </button>
+            </h2>
+            <div
+              [attr.id]="'collapse-' + catIndex + '-' + itemIndex"
+              class="accordion-collapse collapse"
+              [attr.aria-labelledby]="'heading-' + catIndex + '-' + itemIndex"
+              [attr.data-bs-parent]="'#accordion-' + catIndex">
+              <div class="accordion-body">
+                {{ item.answer }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="filteredCategories.length === 0" class="no-results">
+        <p>No FAQs found matching your search. Try different keywords or contact support.</p>
+      </div>
+    </div>

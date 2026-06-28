@@ -1,0 +1,92 @@
+<div class="overlay" (click)="onOverlayClick()">
+  <div class="profile-card" (click)="$event.stopPropagation()">
+    <h5 class="title">Edit Profile Information</h5>
+
+    <p class="subtitle">
+      Update your personal details below.
+    </p>
+
+    <hr class="divider">
+
+    <div class="alert alert-danger" *ngIf="error">
+      {{ error }}
+    </div>
+
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+      <!-- Name Field -->
+      <div class="mb-3">
+        <label for="name" class="form-label">Full Name</label>
+        <div class="input-wrapper">
+          <input
+            type="text"
+            id="name"
+            class="form-control custom-input"
+            placeholder="Enter your name"
+            formControlName="name"
+            [class.is-invalid]="control['name'].invalid && control['name'].touched"
+          />
+          <i class="bi bi-person-fill input-icon"></i>
+        </div>
+        <small class="error-message" *ngIf="control['name'].invalid && control['name'].touched">
+          Full name is required
+        </small>
+      </div>
+
+      <!-- Email Field -->
+      <div class="mb-3">
+        <label for="email" class="form-label">Email Address</label>
+        <div class="input-wrapper">
+          <input
+            type="email"
+            id="email"
+            class="form-control custom-input"
+            placeholder="Enter your email"
+            formControlName="email"
+            [class.is-invalid]="control['email'].invalid && control['email'].touched"
+          />
+          <i class="bi bi-envelope-fill input-icon"></i>
+        </div>
+        <small class="error-message" *ngIf="control['email'].invalid && control['email'].touched">
+          <span *ngIf="control['email'].errors?.['required']">Email is required</span>
+          <span *ngIf="control['email'].errors?.['email']">Invalid email format</span>
+        </small>
+      </div>
+
+      <!-- Phone Field -->
+      <div class="mb-4">
+        <label for="phone" class="form-label">Phone Number</label>
+        <div class="input-wrapper">
+          <input
+            type="text"
+            id="phone"
+            class="form-control custom-input"
+            placeholder="e.g. 01012345678"
+            formControlName="phone"
+            [class.is-invalid]="control['phone'].invalid && control['phone'].touched"
+          />
+          <i class="bi bi-telephone-fill input-icon"></i>
+        </div>
+        <small class="error-message" *ngIf="control['phone'].invalid && control['phone'].touched">
+          <span *ngIf="control['phone'].errors?.['required']">Phone number is required</span>
+          <span *ngIf="control['phone'].errors?.['pattern']">Phone must be 11 digits</span>
+        </small>
+      </div>
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        class="btn save-btn"
+        [disabled]="isLoading"
+      >
+        <span *ngIf="!isLoading">Save Changes</span>
+        <span *ngIf="isLoading" class="spinner-border spinner-border-sm"></span>
+      </button>
+
+    </form>
+
+    <!-- Cancel Button -->
+    <div class="links-container">
+      <a class="link" (click)="onOverlayClick()">Cancel</a>
+    </div>
+  </div>
+</div>

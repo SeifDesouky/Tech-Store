@@ -1,0 +1,44 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h1 class="dashboard-title">Admin Dashboard</h1>
+    <button class="refresh-btn" (click)="refresh()" [disabled]="isLoading">
+      {{ isLoading ? 'Loading...' : 'Refresh' }}
+    </button>
+  </div>
+
+  <!-- Reports Navigation -->
+  <nav class="reports-nav">
+    <a routerLink="/admin/dashboard/reports" routerLinkActive="active-tab" [routerLinkActiveOptions]="{exact: true}" class="nav-tab">
+      <span class="tab-icon">📊</span>
+      <span class="tab-label">Overview</span>
+    </a>
+    <a routerLink="/admin/dashboard/sales" routerLinkActive="active-tab" class="nav-tab">
+      <span class="tab-icon">💰</span>
+      <span class="tab-label">Sales Report</span>
+    </a>
+    <a routerLink="/admin/dashboard/products" routerLinkActive="active-tab" class="nav-tab">
+      <span class="tab-icon">📦</span>
+      <span class="tab-label">Product Performance</span>
+    </a>
+    <a routerLink="/admin/dashboard/customers" routerLinkActive="active-tab" class="nav-tab">
+      <span class="tab-icon">👥</span>
+      <span class="tab-label">Customer Insights</span>
+    </a>
+  </nav>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-state">
+    <p>Loading dashboard metrics...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="error-state">
+    <p>{{ error }}</p>
+    <button (click)="refresh()">Try Again</button>
+  </div>
+
+  <!-- Dashboard Content -->
+  <div *ngIf="!isLoading && !error && dashboard" class="dashboard-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

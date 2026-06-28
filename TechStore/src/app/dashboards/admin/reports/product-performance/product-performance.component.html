@@ -1,0 +1,50 @@
+<div class="performance-container">
+  <div class="header">
+    <h1 class="page-title">Product Performance</h1>
+    <button class="refresh-btn" (click)="refresh()" [disabled]="isLoading">
+      {{ isLoading ? 'Loading...' : 'Refresh' }}
+    </button>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-state">
+    <p>Loading product performance data...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+    <button (click)="refresh()">Try Again</button>
+  </div>
+
+  <!-- Products Table -->
+  <div *ngIf="!isLoading && !error && products.length > 0" class="table-container">
+    <table class="performance-table">
+      <thead>
+        <tr>
+          <th>Product Name</th>
+          <th>Total Revenue</th>
+          <th>Total Purchases</th>
+          <th>Views</th>
+          <th>Conversion Rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products">
+          <td class="product-name">{{ product.ProductName }}</td>
+          <td class="revenue">{{ product.TotalRevenue.toLocaleString() }} EG</td>
+          <td>{{ product.TotalPurchases }}</td>
+          <td>{{ product.ViewsCount }}</td>
+          <td>
+            <span class="conversion-badge">{{ product.PurchaseConversionRate }}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!isLoading && !error && products.length === 0" class="empty-state">
+    <p>No product performance data available.</p>
+  </div>
+</div>

@@ -1,0 +1,218 @@
+:host{
+    display: block;
+    height:100%;
+    margin:0;
+    background: linear-gradient(180deg, #272727e6, #171717f2);
+    color: #fff;
+}
+.category-group {
+    display: flex;
+    flex-direction: column;
+}
+.drop-icon{
+    cursor: pointer;
+    color: #e50914;
+}
+.show{
+    display: block;
+}
+.hide{
+    display: none;
+}
+.custom-radio {
+    position: relative;
+    padding-left: 28px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 16px;
+}
+.custom-radio input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+.radio-mark {
+    position: absolute;
+    left: 0;
+    top: 2px;
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    border: 2px solid #e50914;
+    transition: 0.3s;
+}
+.icon{
+    color: #e50914;
+}
+.custom-radio input:checked ~ .radio-mark {
+    background-color: #e50914;
+    box-shadow: 0 0 8px #ff273d80;
+}
+.custom-radio:hover .radio-mark {
+    transform: scale(1.1);
+}
+
+/* Slider Track */
+.c::-webkit-slider-runnable-track {
+    height: 6px;
+    background: #ff4d4d66; 
+    border-radius: 10px;
+    backdrop-filter: blur(4px);
+}
+
+/* Slider Thumb */
+.c::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: #e50914; /* اللون الأحمر */
+    border-radius: 50%;
+    border: 2px solid #ffffffaa; 
+    box-shadow: 0 0 10px #ff4d4d;
+    cursor: pointer;
+    margin-top: -6px; /* عشان thumb يبقى في النص بالظبط */
+    transition: 0.2s;
+}
+
+.c::-webkit-slider-thumb:hover {
+    box-shadow: 0 0 15px #ff4d4d;
+}
+
+/* Firefox Support */
+.c::-moz-range-track {
+    height: 6px;
+    background: rgba(255, 77, 77, 0.4);
+    border-radius: 10px;
+}
+
+.c::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: #ff4d4d;
+    border-radius: 50%;
+    border: 2px solid #ffffffaa;
+    box-shadow: 0 0 10px #ff4d4d;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.bg-dark-glass {
+    background: #00000066;
+    border: 1px solid #ffffff1f;
+    backdrop-filter: blur(12px);
+}
+
+.bg-card-glass {
+    background: #00000066;
+    border: 2px solid #ffffff26;
+    backdrop-filter: blur(8px);
+    transition: 0.3s ease;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+}
+.bg-card-glass:hover {
+    transform: translateY(-5px);
+}
+.card-img{
+    background-color: #ffffff0a;
+}
+.btn-danger-gradient {
+    background: linear-gradient(45deg, #d50000, #ff4d4d);
+    border: none;
+    color: white;
+    font-weight: 600;
+    padding: 8px 0;
+    border-radius: 25px;
+    box-shadow: 0 5px 20px rgba(255,0,40,0.25);
+}
+.bg-filter{
+    background: #00000066;
+    border: 2px solid #ffffff26;
+}
+
+.custom-select option {
+    background: #3a3a3a;   
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    border: none;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.466);  
+}
+
+.search-box {
+    position: relative;
+}
+
+.search-input {
+    padding-left: 45px !important; 
+    background: rgba(60, 60, 60, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(6px);
+    color: white;
+}
+
+.search-icon {
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.7);
+    pointer-events: none;
+}
+
+::ng-deep .responsive {
+    padding-top: 1.5%;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 20px;
+}
+::ng-deep .responsive a {
+    background: #ffffff0a;
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: #fff;
+    text-decoration: none;
+    transition: 0.3s;
+}
+::ng-deep .responsive a:hover {
+    background: linear-gradient(45deg, #d50000,#ff4d4d) !important;
+}
+::ng-deep .responsive .current {
+    background: linear-gradient(45deg, #d50000, #ff4d4d) !important;
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: #fff !important;
+    font-weight: bold;
+}
+::ng-deep .responsive .disabled {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+.slider-icon{
+    color: white;
+    background: linear-gradient(45deg, #d50000, #ff4d4d) !important;
+    border-radius: 10px;
+    display: inline-block;
+    padding: 7px;
+    font-size: 25px;
+    cursor: pointer;
+}
+.offcanvas{
+    padding: 1%;
+    width: 42%;
+    background: linear-gradient(180deg, #272727e8, #171717f2);
+    color: #fff;
+}
+.btn-close{
+    position: absolute;
+    right: 30px;
+    top: 10px;
+    filter: invert(22%) sepia(93%) saturate(7470%) hue-rotate(356deg) brightness(104%) contrast(106%);
+    opacity: 1;
+}
+
+

@@ -1,0 +1,30 @@
+.bg-custom{
+    background-color: #393838;
+}
+.nav-link{
+    color: white;
+    /* font-weight: 600; */
+    text-transform: uppercase;
+    font-size: 15.8px;
+}
+.active-link{
+    color: #e50914;
+    font-weight: 600;
+    font-size: 17px;
+}
+.borde{
+    height: 5px;
+    background-color: #e50914 ;
+}
+.icons{
+    display: flex;
+    justify-content: space-between;
+    color: #e50914;
+    font-size: 20px;
+    width: 5%;
+    cursor: pointer;
+}
+.navbar-toggler-icon, .navbar-toggler{
+    filter: invert(22%) sepia(93%) saturate(7470%) hue-rotate(356deg) brightness(104%) contrast(106%);
+    opacity: 1;
+}

@@ -1,0 +1,251 @@
+.card-box {
+    background: #00000066;
+    border-radius: 16px;
+    padding: 24px;
+    border: 2px solid #ffffff26;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+    background: #00000066;
+    max-height: 100vh;
+    overflow-y: auto;
+}
+.title {
+    color: #fff;
+    font-size: 26px;
+}
+.icon{
+    color:#e50914;
+}
+.status-filter {
+    background-color: #212424;
+    border: 1px solid #2a2d2d;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.order-card {
+    background-color: #ffffff0a;
+    border-radius: 12px;
+    padding: 16px;
+    border: 1px solid #4b5563;
+}
+.card-header{
+  background-color: transparent; 
+  border-bottom: 1px solid #343639;
+}
+.date {
+    font-size: 13px;
+    color: #9ca3af;
+}
+.badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.badge.Pending { background: #f59e0b; }
+.badge.Processing { background: #3b82f6; }
+.badge.Shipped { background: #6366f1; }
+.badge.Delivered { background: #10b981; }
+.badge.Cancelled { background: #ef4444; }
+
+.item-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+.name {
+  color: white;
+  font-size: 14px;
+}
+.qty {
+  color: #9ca3af;
+  font-size: 12px;
+}
+.order-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.total {
+  color: white;
+  font-weight: bold;
+}
+
+.btn-custom {
+  background: linear-gradient(45deg, #d50000, #ff4d4d);
+  border: none;
+  padding: 8px 14px;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #a01428;
+}
+
+.order-details {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #424646;
+}
+.order-details p {
+  color: #d1d5db;
+  font-size: 14px;
+}
+.inside-card{
+  background-color: #212424;
+}
+textarea{
+  background-color: transparent;
+  color: white;
+}
+textarea:focus{
+  background-color: transparent;
+  color: white;
+}
+textarea::placeholder,.upload-icon {
+  color: #9ca3af;
+}
+.close-btn{
+  background-color: #2a2d2d !important; 
+  color: white;
+}
+.step-completed{
+  background-color:#e50914;
+  color: #fff;
+}
+.step-pending{
+  background-color: #9ca3af;
+  color:#9ca3af,
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .orders-header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .item {
+    width: 100%;
+  }
+
+  .order-footer {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+}
+
+.modal-content {
+    border: 2px solid #ffffff26;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+    background: #1e1e1e;
+    color: white;
+}
+.modal{
+  background-color: #000000b3;
+}
+
+.custom-modal .modal-header,
+.custom-modal .modal-footer {
+  border-color: #2a2d2d;
+}
+
+.custom-modal .form-control,
+.custom-modal .form-select {
+  background-color: #212424;
+  color: #ffffff;
+  border: 1px solid #2a2d2d;
+}
+
+.custom-modal .form-control:focus,
+.custom-modal .form-select:focus {
+  border-color: #c41931;
+  box-shadow: none;
+}
+.custom-modal .btn-secondary {
+  background-color: #2a2d2d;
+  border: none;
+}
+
+.custom-modal .btn-secondary:hover {
+  background-color: #343838;
+}
+
+.orders-container {
+  min-height: 100vh;
+}
+.timeline-container {
+  position: relative;
+  padding: 20px 0;
+}
+
+.timeline-step {
+  position: relative;
+  z-index: 2;
+}
+
+.timeline-icon {
+  position: relative;
+  z-index: 3;
+}
+
+.timeline-line {
+  position: absolute;
+  top: 40px;
+  left: 20px;
+  right: 20px;
+  height: 2px;
+  background-color: #2a2d2d;
+  z-index: 1;
+}
+
+.modal {
+  overflow-y: auto;
+}
+
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .timeline-step p {
+    font-size: 0.7rem;
+  }
+  
+  .timeline-icon {
+    width: 30px !important;
+    height: 30px !important;
+  }
+  
+  .timeline-line {
+    top: 35px;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #131416;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c41931;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a01428;
+}

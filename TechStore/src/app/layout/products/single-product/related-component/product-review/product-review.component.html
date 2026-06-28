@@ -1,0 +1,79 @@
+<div class="reviews-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="reviews-header">
+          <h2 class="reviews-title">
+            Reviews
+            <svg class="star-icon" width="32" height="32" viewBox="0 0 24 24" fill="#FFD700">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          </h2>
+          <span class="reviews-count">({{ totalReviews }} Reviews)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-10 col-xl-8">
+        <div class="featured-review-card">
+          <div class="review-header">
+            <div class="user-info">
+              <div class="avatar-placeholder"></div>
+              <div class="user-details">
+                <h3 class="user-name">{{ reviews[0].user.name}}</h3>
+                <div class="star-rating">
+                  <svg *ngFor="let star of getStarsArray(reviews[0].rating)"
+                      class="star" width="18" height="18" viewBox="0 0 24 24" fill="#FFD700">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="review-content">
+            <p class="review-text">{{ reviews[0].comment }}</p>
+          </div>
+          <div class="review-footer">
+            <span class="review-date">{{ reviews[0].createdAt|date }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <div class="carousel-wrapper">
+          <button class="carousel-arrow carousel-arrow-left" (click)="scrollLeft()" aria-label="Previous reviews">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+
+          <div class="small-reviews-container" #smallReviewsContainer>
+            <div class="small-review-card" *ngFor="let review of reviews">
+              <div class="small-review-header">
+                <div class="small-avatar"></div>
+                <div class="small-user-details">
+                  <h4 class="small-user-name">{{ review.user.name }}</h4>
+                  <div class="small-star-rating">
+                    <svg *ngFor="let star of getStarsArray(review.rating)"
+                        class="small-star" width="14" height="14" viewBox="0 0 24 24" fill="#FFD700">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <p class="small-review-text">{{ review.comment }}</p>
+              <span class="small-review-date">{{ review.createdAt|date }}</span>
+            </div>
+          </div>
+
+          <button class="carousel-arrow carousel-arrow-right" (click)="scrollRight()" aria-label="Next reviews">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>

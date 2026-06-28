@@ -1,0 +1,126 @@
+<div class="container-fluid p-4">
+    <!-- Loading State -->
+    <div *ngIf="loading" class="text-center p-5">
+        <div class="spinner-border text-light" role="status">
+        <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <!-- Empty Wishlist -->
+    <div *ngIf="!loading && wishlist?.length === 0" class="card-box">
+        <div class="empty-state text-center">
+        <i class="bi bi-heart empty-icon"></i>
+        <h2 class="text-white mb-3">Your Wishlist is Empty</h2>
+        <p class="text-muted mb-4">
+            Save items you love to buy later. Start adding products to your wishlist!
+        </p>
+        <button class="btn custom" routerLink="/product">Browse Products</button>
+        </div>
+    </div>
+
+    <!-- Wishlist Content -->
+    <div *ngIf="!loading && wishlist.length > 0" class="card-box">
+        <!-- Header -->
+        <div class="wishlist-header">
+        <div>
+            <h2 class="title d-flex align-items-center gap-3 mb-2">
+            <i class="bi bi-heart-fill icon"></i>
+            My Wishlist
+            </h2>
+            <p class="small text-gray">
+            {{ wishlist.length }} {{ wishlist.length === 1 ? 'item' : 'items' }} saved
+            </p>
+        </div>
+
+        <!-- Summary Stats -->
+        <div class="d-flex gap-4">
+            <div class="text-end">
+            <p class="text-gray small mb-1">Total Value</p>
+            <p class="text-white mb-0">${{ totalValue.toFixed(2) }}</p>
+            </div>
+            <div *ngIf="totalSavings > 0" class="text-end">
+            <p class="small mb-1">Potential Savings</p>
+            <p class="text-success mb-0">${{ totalSavings.toFixed(2) }}</p>
+            </div>
+        </div>
+        </div>
+
+        <!-- Out of Stock Alert -->
+        <!-- <div *ngIf="hasOutOfStockItems" class="alert-custom mb-4">
+        <i class="bi bi-exclamation-circle text-warning"></i>
+        <div>
+            <p class="mb-0">
+            <strong class="text-warning">Notice:</strong> Some items in your wishlist are currently out of stock. We'll notify you when they're available again.
+            </p>
+        </div>
+        </div> -->
+
+        <!-- Wishlist Grid -->
+        <div class="row g-4 mb-3">
+        <div *ngFor="let item of wishlist" class="col-12 col-sm-6 col-lg-4">
+            <div class="wishlist-item">
+            <!-- Product Image -->
+            <div class="item-image-wrapper ">
+                <img [src]="item.images?.[0]" [alt]="item.name" class="item-image">
+                
+                <!-- Out of Stock Overlay -->
+                <!-- <div *ngIf="!item.inStock" class="out-of-stock-overlay">
+                <div class="text-center">
+                    <i class="bi bi-box-seam text-white mb-2" style="font-size: 2rem;"></i>
+                    <span class="badge bg-danger">Out of Stock</span>
+                </div>
+                </div> -->
+
+                <!-- Remove Button -->
+                <button 
+                class="btn-remove"
+                (click)="removeItem(item._id)"
+                title="Remove from wishlist">
+                <i class="bi bi-trash"></i>
+                </button>
+            </div>
+
+            <!-- Product Info -->
+            <div class="item-content">
+                <p *ngIf="item.category" class="text-gray small mb-1">{{ item.category }}</p>
+                <h3 class="item-title">{{ item.name }}</h3>
+
+                <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+                <span class="text-white fs-5">${{ item.price.toFixed(2) }}</span>
+                <ng-container *ngIf="item.price">
+                    <span class="text-gray text-decoration-line-through small">
+                    ${{ item.price.toFixed(2) }}
+                    </span>
+                    <span class="badge badge-discount">
+                    {{ calculateDiscount(item.price, item.price) }}% OFF
+                    </span>
+                </ng-container>
+                </div>
+                <button class="btn custom w-100" (click)="addToCart(item)"><i class="bi bi-cart-plus me-2"></i> Add to Cart</button>
+                <!-- <button
+                class="btn btn-primary-custom w-100"
+                (click)="addToCart(item)"
+                [disabled]="!item.inStock">
+                <i class="bi bi-cart-plus me-2"></i>
+                {{ item.inStock ? 'Add to Cart' : 'Out of Stock' }}
+                </button> -->
+            </div>
+            </div>
+        </div>
+        </div>
+
+        <!-- Action Footer -->
+        <div class="wishlist-footer">
+        <!-- <button 
+            class="btn btn-primary-custom flex-grow-1"
+            (click)="addAllToCart()">
+            Add All to Cart ({{ inStockCount }} items)
+        </button> -->
+        <button 
+            class="btn btn-secondary-custom"
+            (click)="clearWishlist()">
+            Clear Wishlist
+        </button>
+        </div>
+    </div>
+</div>

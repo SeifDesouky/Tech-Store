@@ -1,0 +1,28 @@
+<div class="container py-5" id="category">
+    <div class="title">CATEGORY</div>
+    <div class="row g-4 align-items-stretch" id="cardsWrap">
+        <div class="col-12 col-md-6 col-lg-4"
+            *ngFor="let card of cards; let i = index">
+        <div class="cat-card" [ngClass]="activeIndex === i ? 'cat-card--active' : 'cat-card--dim'"
+            (click)="setActive(i)">
+            <div class="image d-flex justify-content-center w-100">
+                <img [src]="card.img" alt="">
+            </div>
+            <div class="card-body text-start">
+                <h3>{{ card.title }}</h3>
+                <p>{{ card.desc }}</p>
+                <div class="text-center">
+                    <button class="btn cta">Explore Category</button>
+                </div>
+                <!-- <a href="#" class="cta my-5">Explore Category</a> -->
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- indicators -->
+    <div class="indicators" id="indicators">
+        <div class="dot" *ngFor="let d of cards; let i = index"
+        [class.active]="activeIndex === i" (click)="setActive(i)"></div>
+    </div>
+</div>

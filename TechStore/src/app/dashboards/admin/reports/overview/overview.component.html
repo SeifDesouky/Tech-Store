@@ -1,0 +1,73 @@
+  <div *ngIf="!isLoading && !error && dashboard" class="dashboard-content">
+    <!-- Key Metrics Grid -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-icon">💰</div>
+        <div class="metric-details">
+          <h3 class="metric-label">Total Sales</h3>
+          <p class="metric-value">{{ dashboard.totalSales.toLocaleString() }} EG</p>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon">📦</div>
+        <div class="metric-details">
+          <h3 class="metric-label">Total Orders</h3>
+          <p class="metric-value">{{ dashboard.totalOrders.toLocaleString() }}</p>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon">📊</div>
+        <div class="metric-details">
+          <h3 class="metric-label">Average Order Value</h3>
+          <p class="metric-value">{{ dashboard.averageOrderValue.toLocaleString() }} EG</p>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon">⏳</div>
+        <div class="metric-details">
+          <h3 class="metric-label">Pending Orders</h3>
+          <p class="metric-value">{{ dashboard.pendingOrdersCount }}</p>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon">👥</div>
+        <div class="metric-details">
+          <h3 class="metric-label">New Customers</h3>
+          <p class="metric-value">{{ dashboard.newCustomerRegistrations }}</p>
+        </div>
+      </div>
+
+      <div class="metric-card alert-card">
+        <div class="metric-icon">⚠️</div>
+        <div class="metric-details">
+          <h3 class="metric-label">Low Stock Alerts</h3>
+          <p class="metric-value">{{ dashboard.lowStockAlerts }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Revenue Trends -->
+    <div class="revenue-trends-section">
+      <h2 class="section-title">Revenue Trends</h2>
+      <div class="trends-grid">
+        <div class="trend-card">
+          <h3 class="trend-label">Daily Revenue</h3>
+          <p class="trend-value">{{ dashboard.revenueTrends.daily.toLocaleString() }} EG</p>
+        </div>
+
+        <div class="trend-card">
+          <h3 class="trend-label">Weekly Revenue</h3>
+          <p class="trend-value">{{ dashboard.revenueTrends.weekly.toLocaleString() }} EG</p>
+        </div>
+
+        <div class="trend-card">
+          <h3 class="trend-label">Monthly Revenue</h3>
+          <p class="trend-value">{{ dashboard.revenueTrends.monthly.toLocaleString() }} EG</p>
+        </div>
+      </div>
+    </div>
+  </div>

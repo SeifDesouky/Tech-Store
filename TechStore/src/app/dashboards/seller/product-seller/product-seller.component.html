@@ -1,0 +1,358 @@
+<div class="products-container">
+    <!-- Header -->
+    <div class="header-section mb-4">
+        <div class="row align-items-center">
+        <div class="col-md-8">
+            <h1 class="page-title">Products Management</h1>
+            <p class="page-subtitle">Manage all products in your platform</p>
+        </div>
+        <div class="col-md-4 text-md-end">
+            <button class="btn btn-primary" (click)="handleAddProduct()">
+            <i class="bi bi-plus-lg me-2"></i>Add Product
+            </button>
+        </div>
+        </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-3">
+        <div class="stat-card" style="--stat-color: #3b82f6">
+            <p class="stat-label">Total Products</p>
+            <p class="stat-value">{{ stats.total }}</p>
+        </div>
+        </div>
+        <div class="col-md-3">
+        <div class="stat-card" style="--stat-color: #f59e0b">
+            <p class="stat-label">Low Stock</p>
+            <p class="stat-value">{{ stats.lowStock }}</p>
+        </div>
+        </div>
+        <div class="col-md-3">
+        <div class="stat-card" style="--stat-color: #ef4444">
+            <p class="stat-label">Out of Stock</p>
+            <p class="stat-value">{{ stats.outOfStock }}</p>
+        </div>
+        </div>
+        <div class="col-md-3">
+        <div class="stat-card" style="--stat-color: #10b981">
+            <p class="stat-label">Categories</p>
+            <p class="stat-value">{{ stats.totalCategories }}</p>
+        </div>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filter-card mb-4">
+    <div class="row g-3">
+        <!-- Search Input -->
+        <div class="col-md-6">
+        <div class="search-wrapper">
+            <i class="bi bi-search search-icon"></i>
+            <input
+            type="text"
+            class="form-control search-input"
+            placeholder="Search products..."
+            [(ngModel)]="searchTerm"
+            (ngModelChange)="onSearchChange()"
+            />
+        </div>
+        </div>
+
+        <!-- Category Filter -->
+        <div class="col-md-2">
+        <select
+            class="form-select custom-select"
+            [(ngModel)]="categoryFilter"
+            (ngModelChange)="onCategoryFilterChange()"
+        >
+            <option value="">All Categories</option>
+            <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+        </select>
+        </div>
+
+        <!-- Visibility Filter -->
+        <div class="col-md-2">
+        <select
+            class="form-select custom-select"
+            [(ngModel)]="visibilityFilter"
+            (ngModelChange)="onVisibilityFilterChange()"
+        >
+            <option value="">All Visibility</option>
+            <option value="Published">Published</option>
+            <option value="Draft">Draft</option>
+            <option value="Hidden">Hidden</option>
+        </select>
+        </div>
+
+        <!-- 🆕 Stock Sort Filter -->
+        <div class="col-md-2">
+        <select
+            class="form-select custom-select"
+            [(ngModel)]="stockSortFilter"
+            (ngModelChange)="onStockSortChange()">
+            <option value="">Sort by Stock</option>
+            <option value="asc">Low to High</option>
+            <option value="desc">High to Low</option>
+        </select>
+        </div>
+    </div>
+    </div>
+
+    <!-- Loading -->
+    <div *ngIf="isLoading" class="text-center py-5">
+        <div class="spinner-border text-danger" role="status">
+        <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <!-- Products Table -->
+    <div *ngIf="!isLoading" class="table-card">
+        <div class="table-responsive">
+        <table class="custom-table mb-0 w-100">
+            <thead>
+            <tr>
+                <th>Image</th>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Seller</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Visibility</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let product of filteredProducts; let i = index" [class.even-row]="i % 2 === 0">
+                <td>
+                <div class="product-image">
+                    <img 
+                    *ngIf="product.images && product.images.length > 0" 
+                    [src]="getImageSrc(product.images[0])" 
+                    [alt]="product.name"
+                    class="img-thumbnail"
+                    />
+                    <div *ngIf="!product.images || product.images.length === 0" class="image-placeholder">
+                    <i class="bi bi-image"></i>
+                    </div>
+                </div>
+                </td>
+                <td class="text-white">{{ product.name }}</td>
+                <td class="text-gray">{{ product.category }}</td>
+                <td class="text-gray">{{ getSellerName(product.seller) }}</td>
+                <td class="text-white">{{ product.price }}</td>
+                <td>
+                <span 
+                    class="status-badge" 
+                    [ngClass]="getStockBadgeClass(product.stockQuantity, product.lowStockThreshold)">
+                    {{ product.stockQuantity }}
+                </span>
+                </td>
+                <td>
+                <button 
+                    class="btn-visibility"
+                    [class.visible]="product.visibility === 'Published'"
+                    (click)="toggleVisibility(product)"
+                >
+                    <i 
+                    class="bi" 
+                    [ngClass]="product.visibility === 'Published' ? 'bi-toggle-on' : 'bi-toggle-off'"
+                    ></i>
+                </button>
+                </td>
+                <td>
+                <div class="action-buttons">
+                    <button
+                    class="btn btn-action btn-edit"
+                    (click)="handleEditProduct(product)"
+                    title="Edit"
+                    >
+                    <i class="bi bi-pencil"></i>
+                    </button>
+                    <button
+                    class="btn btn-action btn-delete"
+                    (click)="deleteProduct(product)"
+                    title="Delete"
+                    >
+                    <i class="bi bi-trash"></i>
+                    </button>
+                </div>
+                </td>
+            </tr>
+            <tr *ngIf="filteredProducts.length === 0">
+                <td colspan="8" class="text-center text-gray py-4">
+                No products found
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+
+    <!-- Add/Edit Product Modal -->
+    <div class="modal fade" [class.show]="showProductModal" [style.display]="showProductModal ? 'block' : 'none'">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content custom-modal">
+            <div class="modal-header">
+            <h5 class="modal-title">{{ editMode ? 'Edit Product' : 'Add New Product' }}</h5>
+            <button type="button" class="btn-close btn-close-white" (click)="closeProductModal()"></button>
+            </div>
+            <div class="modal-body">
+            <form (ngSubmit)="submitProduct()">
+                <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Product Name *</label>
+                    <input 
+                    type="text" 
+                    class="form-control custom-input" 
+                    [(ngModel)]="productForm.name"
+                    name="name"
+                    required
+                    placeholder="Enter product name"
+                    />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Category *</label>
+                    <select 
+                    class="form-select custom-select" 
+                    [(ngModel)]="productForm.category"
+                    name="category"
+                    required
+                    >
+                    <option value="">Select category</option>
+                    <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Brand *</label>
+                    <input 
+                    type="text" 
+                    class="form-control custom-input" 
+                    [(ngModel)]="productForm.brand"
+                    name="brand"
+                    required
+                    placeholder="Enter brand"
+                    />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">SKU *</label>
+                    <input 
+                    type="text" 
+                    class="form-control custom-input" 
+                    [(ngModel)]="productForm.sku"
+                    name="sku"
+                    required
+                    placeholder="Enter SKU"
+                    />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Price *</label>
+                    <input 
+                    type="number" 
+                    class="form-control custom-input" 
+                    [(ngModel)]="productForm.price"
+                    name="price"
+                    required
+                    min="0"
+                    step="0.01"
+                    placeholder="0.00"
+                    />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Stock *</label>
+                    <input 
+                    type="number" 
+                    class="form-control custom-input" 
+                    [(ngModel)]="productForm.stockQuantity"
+                    name="stock"
+                    required
+                    min="0"
+                    placeholder="0"
+                    />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Condition *</label>
+                    <select 
+                    class="form-select custom-select" 
+                    [(ngModel)]="productForm.condition"
+                    name="condition"
+                    required
+                    >
+                    <option value="New">New</option>
+                    <option value="Used">Used</option>
+                    <option value="Imported">Imported</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Discount (%)</label>
+                    <input 
+                    type="number" 
+                    class="form-control custom-input" 
+                    [(ngModel)]="productForm.discount"
+                    name="discount"
+                    min="0"
+                    max="100"
+                    placeholder="0"
+                    />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Visibility *</label>
+                    <select 
+                    class="form-select custom-select" 
+                    [(ngModel)]="productForm.visibility"
+                    name="visibility"
+                    required
+                    >
+                    <option value="Published">Published</option>
+                    <option value="Draft">Draft</option>
+                    <option value="Hidden">Hidden</option>
+                    </select>
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Description *</label>
+                    <textarea 
+                    class="form-control custom-input" 
+                    rows="4"
+                    [(ngModel)]="productForm.description"
+                    name="description"
+                    required
+                    placeholder="Enter product description"
+                    ></textarea>
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Product Images</label>
+                    <div class="upload-area">
+                    <input 
+                        type="file" 
+                        id="fileInput"
+                        multiple
+                        accept="image/*"
+                        (change)="onImgSelect($event)"
+                        hidden
+                    />
+                    <label for="fileInput" class="upload-label">
+                        <i class="bi bi-cloud-upload"></i>
+                        <p class="text-gray-400">Click to upload or drag and drop</p>
+                        <p class="text-gray-500">PNG, JPG up to 10MB</p>
+                        <p class="text-white mt-2" *ngIf="image.length > 0">
+                        {{ image.length }} file(s) selected
+                        </p>
+                    </label>
+                    </div>
+                </div>
+                </div>
+                <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-lg me-2"></i>{{ editMode ? 'Update Product' : 'Add Product' }}
+                </button>
+                <button type="button" class="btn btn-secondary" (click)="closeProductModal()">
+                    Cancel
+                </button>
+                </div>
+            </form>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="modal-backdrop fade" [class.show]="showProductModal" *ngIf="showProductModal" (click)="closeProductModal()"></div>
+</div>

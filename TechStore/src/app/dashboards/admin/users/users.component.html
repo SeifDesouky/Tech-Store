@@ -1,0 +1,213 @@
+<div class="users-container">
+    <!-- Header -->
+    <div class="header-section mb-4">
+        <div class="row align-items-center">
+        <div class="col-md-8">
+            <h1 class="page-title">Users Management</h1>
+            <p class="page-subtitle">Manage all users and their permissions</p>
+        </div>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filter-card mb-4">
+        <div class="row g-3">
+        <!-- Search Input -->
+        <div class="col-md-6">
+            <div class="search-wrapper position-relative">
+            <i class="bi bi-search search-icon"></i>
+            <input
+                type="text"
+                class="form-control search-input"
+                placeholder="Search by name or email..."
+                [(ngModel)]="searchTerm"
+                (ngModelChange)="onSearchChange()"
+            />
+            </div>
+        </div>
+
+        <!-- Role Filter -->
+        <div class="col-md-3">
+            <select
+            class="form-select custom-select"
+            [(ngModel)]="roleFilter"
+            (ngModelChange)="onRoleFilterChange()"
+            >
+            <option value="">All Roles</option>
+            <option value="buyer">Customer</option>
+            <option value="seller">Seller</option>
+            <option value="admin">Admin</option>
+            </select>
+        </div>
+
+        <!-- Status Filter -->
+        <div class="col-md-3">
+            <select
+            class="form-select custom-select"
+            [(ngModel)]="statusFilter"
+            (ngModelChange)="onStatusFilterChange()"
+            >
+            <option value="">All Status</option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+            <option value="Banned">Banned</option>
+            </select>
+        </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div *ngIf="isLoading" class="text-center py-5">
+        <div class="spinner-border text-danger" role="status">
+        <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <!-- Users Table -->
+    <div *ngIf="!isLoading" class="table-ard">
+        <div class="table-responsive">
+        <table class="custom-table w-100 mb-0">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Joined</th>
+                <th>Orders</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let user of filteredUsers; let i = index" [class.even-row]="i % 2 === 0">
+                <td class="text-white">#{{ user._id.slice(-6) }}</td>
+                <td class="text-white">{{ user.name }}</td>
+                <td class="text-gray">{{ user.email }}</td>
+                <td>
+                    <span class="role-badge">{{ getRoleDisplayName(user.role) }}</span>
+                </td>
+                <td>
+                    <div (click)="toggleUserActive(user)">
+                        <span class="status-badge" [ngClass]="getStatusBadge(getUserStatus(user))">
+                            {{ getUserStatus(user) }}
+                            
+                        </span>
+                        
+                    </div>
+                </td>
+                <td class="text-gray">{{ user.createdAt|date }}</td>
+                <td class="text-white">{{ user.orderCount || 0 }}</td>
+                <td>
+                <div class="action-buttons">
+                    <button
+                    class="btn btn-action btn-view"
+                    (click)="handleViewUser(user)"
+                    title="View Details"
+                    >
+                    <i class="bi bi-eye"></i>
+                    </button>
+                    <button
+                    *ngIf="user.isBanned"
+                    class="btn btn-action btn-unban"
+                    (click)="toggleBanUser(user)"
+                    title="Unban User"
+                    >
+                    <i class="bi bi-check-circle"></i>
+                    </button>
+                    <button
+                    *ngIf="!user.isBanned"
+                    class="btn btn-action btn-ban"
+                    (click)="toggleBanUser(user)"
+                    title="Ban User"
+                    >
+                    <i class="bi bi-ban"></i>
+                    </button>
+                </div>
+                </td>
+            </tr>
+            <tr *ngIf="filteredUsers.length === 0">
+                <td colspan="8" class="text-center text-gray py-4">
+                No users found
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+
+    <!-- User Details Modal -->
+    <div class="modal fade" [class.show]="showUserModal" [style.display]="showUserModal ? 'block' : 'none'" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content custom-modal">
+            <div class="modal-header">
+            <h5 class="modal-title">User Details</h5>
+            <button type="button" class="btn-close btn-close-white" (click)="closeModal()"></button>
+            </div>
+            <div class="modal-body" *ngIf="selectedUser">
+            <div class="row g-4">
+                <div class="col-6">
+                <p class="detail-label">Name</p>
+                <p class="detail-value">{{ selectedUser.name }}</p>
+                </div>
+                <div class="col-6">
+                <p class="detail-label">Email</p>
+                <p class="detail-value">{{ selectedUser.email }}</p>
+                </div>
+                <div class="col-6">
+                <p class="detail-label">Phone</p>
+                <p class="detail-value">{{ selectedUser.phone || 'N/A' }}</p>
+                </div>
+                <div class="col-6">
+                <p class="detail-label">Role</p>
+                <p class="detail-value">{{ getRoleDisplayName(selectedUser.role) }}</p>
+                </div>
+                <div class="col-6">
+                <p class="detail-label">Status</p>
+                <span class="status-badge" [ngClass]="getStatusBadge(getUserStatus(selectedUser))">
+                    {{ getUserStatus(selectedUser) }}
+                </span>
+                </div>
+                <div class="col-6">
+                <p class="detail-label">Email Verified</p>
+                <p class="detail-value">
+                    <i class="bi" [ngClass]="selectedUser.isEmailVerified ? 'bi-check-circle-fill text-success' : 'bi-x-circle-fill text-danger'"></i>
+                    {{ selectedUser.isEmailVerified ? 'Yes' : 'No' }}
+                </p>
+                </div>
+                <div class="col-6">
+                <p class="detail-label">Joined Date</p>
+                <p class="detail-value">{{ selectedUser.createdAt|date }}</p>
+                </div>
+                <div class="col-6">
+                <p class="detail-label">Total Orders</p>
+                <p class="detail-value">{{ selectedUser.orderCount || 0 }}</p>
+                </div>
+            </div>
+            </div>
+            <div class="modal-footer">
+            <button
+                *ngIf="selectedUser && selectedUser.isBanned"
+                type="button"
+                class="btn btn-success"
+                (click)="toggleBanUser(selectedUser)"
+            >
+                <i class="bi bi-check-circle me-2"></i>Unban User
+            </button>
+            <button
+                *ngIf="selectedUser && !selectedUser.isBanned"
+                type="button"
+                class="btn btn-danger"
+                (click)="toggleBanUser(selectedUser)"
+            >
+                <i class="bi bi-ban me-2"></i>Ban User
+            </button>
+            <button type="button" class="btn btn-secondary" (click)="closeModal()">
+                Close
+            </button>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="modal-backdrop fade" [class.show]="showUserModal" *ngIf="showUserModal" (click)="closeModal()"></div>
+</div>
