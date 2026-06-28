@@ -53,11 +53,7 @@ app.use((req, res, next) => {
 
 app.use(mongoSanitize()); 
 app.use(xss()); 
-app.get("/", (req, res) => {
-  res.json({
-    status: "API is running"
-  });
-});
+
 app.use(morgan('dev'));
 app.use(cors({ origin: true, credentials: true }));
 app.use(compression());
@@ -93,38 +89,11 @@ app.use((err, req, res, next) => {
     });
 });
 
-// mongoose.connect(process.env.MONGO_URI)
-//     .then(() => {
-//         console.log('MongoDB Connected successfully');
-//         app.listen(PORT, () => {
-//             console.log(`Server is running on port ${PORT}`);
-//         });
-//     })
-//     .catch(err => console.error('Database connection error:', err));
-
-const serverless = require("serverless-http");
-
-let isConnected = false;
-
-async function connectDB() {
-  if (isConnected) return;
-
-  await mongoose.connect(process.env.MONGO_URI);
-  isConnected = true;
-
-  console.log("MongoDB Connected");
-}
-
-app.use(async (req, res, next) => {
-  try {
-    await connectDB();
-    next();
-  } catch (err) {
-    return res.status(500).json({
-      message: "Database connection failed",
-      error: err.message
-    });
-  }
-});
-
-module.exports = serverless(app);
+mongoose.connect(process.env.MONGO_URI)
+    .then(() => {
+        console.log('MongoDB Connected successfully');
+        app.listen(PORT, () => {
+            console.log(`Server is running on port ${PORT}`);
+        });
+    })
+    .catch(err => console.error('Database connection error:', err));

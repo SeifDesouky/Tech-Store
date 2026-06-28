@@ -25,7 +25,7 @@
     "xss-clean": "^0.1.4"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "nodemon index.js"
   },
   "devDependencies": {
     "nodemon": "^3.1.11"
